@@ -30,7 +30,11 @@ scale_x_log10nice <- function(name=NULL,omag=seq(-10,20),...) {
 
 # COVID-19
 
-The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
+We determine the order of countries it spread using the exponential growth model and determine that it started in China, then spread to Iran, South Korea, Italy, U.S., France, and then Spain based on confirmed deaths.
+
+Japan and South Korea have a much slower growth in the death rate (see graph at the bottom). China, Italy, and U.S. appear to have common trajectories.
+
+The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
 
 
 ## Time Series
@@ -55,15 +59,18 @@ m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
-#m3$Region = as.character(levels(m3$Region)[m3$Region])
 ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
-  geom_bar(stat='identity', fill='red') + 
+  geom_bar(stat='identity', fill='red') +
   xlab('') +
-  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
-  scale_y_log10nice() +
+  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') +
+  scale_y_log10nice() + 
   coord_flip() + 
   theme_bw() 
+```
 
+Only **10 days later** the list of countries hugely expanded, so on `2020-03-11`, we have:
+
+```{r}
 SEL.DATE = '2020-03-11'
 m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
@@ -74,7 +81,7 @@ ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) +
   geom_bar(stat='identity', fill='red') + 
   xlab('') +
   ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
-  scale_y_log10nice() +
+  scale_y_log10nice() + 
   coord_flip() + 
   theme_bw() 
 top.regions = levels(m3$Region)[m3$Region]
@@ -88,7 +95,7 @@ m4p = which(m4$Region %in% top.regions)
 m5 = m4[m4p,]
 ggplot(m5, aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
-  scale_y_log10nice(limits=c(100,2e5)) + 
+  scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + ylab('') + 
   theme_bw()
 ```
 
@@ -100,7 +107,7 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' |
                 Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain'), aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
-  scale_y_log10nice(limits=c(100,2e5)) + 
+  scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + 
   theme_bw()
 ```
 
