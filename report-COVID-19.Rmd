@@ -1,0 +1,183 @@
+---
+title: "report-COVID-19"
+author: "Thomas Gredig"
+date: "3/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message  = FALSE)
+library(ggplot2)
+library(reshape2)
+library(knitr)
+scientific_10 <- function(x) {
+    xout <- gsub("1e", "10^{", format(x),fixed=TRUE)
+    xout <- gsub("{-0", "{-", xout,fixed=TRUE)
+    xout <- gsub("{+", "{", xout,fixed=TRUE)
+    xout <- gsub("{0", "{", xout,fixed=TRUE)
+    xout <- paste(xout,"}",sep="")
+    return(parse(text=xout))
+}
+scale_y_log10nice <- function(name=NULL,omag=seq(-10,20),...) {
+    breaks10 <- 10^omag
+    scale_y_log10(name,breaks=breaks10,labels=scientific_10(breaks10),...)
+}
+scale_x_log10nice <- function(name=NULL,omag=seq(-10,20),...) {
+    breaks10 <- 10^omag
+    scale_x_log10(name,breaks=breaks10,labels=scientific_10(breaks10),...)
+}
+```
+
+# COVID-19
+
+The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
+
+
+## Time Series
+
+Regions with more than 100 confirmed cases increased rapidly from Mar 1 to Mar 11:
+
+```{r}
+path.series = 'csse_covid_19_data/csse_covid_19_time_series'
+file.list = dir(path.series, pattern='csv$')
+filename = file.list[1]
+f = file.path(path.series, filename)
+d = read.csv(f)
+d1 = d[,-c(1,3,4)]
+m1 = melt(d1)
+names(m1) = c('Region','Date','Confirmed')
+m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
+m1$Date = as.Date(m1$Date, format='%m.%d.%y')
+
+NUM.CASES = 300
+SEL.DATE = '2020-03-01'
+m2 = subset(m1, Date==SEL.DATE)
+m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
+names(m3) = c('Region','Confirmed')
+m3 = subset(m3, Confirmed>NUM.CASES)
+#m3$Region = as.character(levels(m3$Region)[m3$Region])
+ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
+  geom_bar(stat='identity', fill='red') + 
+  xlab('') +
+  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
+  scale_y_log10nice() +
+  coord_flip() + 
+  theme_bw() 
+
+SEL.DATE = '2020-03-11'
+m2 = subset(m1, Date==SEL.DATE)
+m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
+names(m3) = c('Region','Confirmed')
+m3 = subset(m3, Confirmed>NUM.CASES)
+#m3$Region = as.character(levels(m3$Region)[m3$Region])
+ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
+  geom_bar(stat='identity', fill='red') + 
+  xlab('') +
+  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
+  scale_y_log10nice() +
+  coord_flip() + 
+  theme_bw() 
+top.regions = levels(m3$Region)[m3$Region]
+```
+
+
+```{r}
+m4 = aggregate(m1$Confirmed, by=list(m1$Region, m1$Date), FUN=sum)
+names(m4) = c('Region','Date','Confirmed')
+m4p = which(m4$Region %in% top.regions)
+m5 = m4[m4p,]
+ggplot(m5, aes(Date, Confirmed, col=Region)) + 
+  geom_point() + 
+  scale_y_log10nice(limits=c(100,2e5)) + 
+  theme_bw()
+```
+
+
+Select a few countries with exponential growth in comparison with China:
+
+```{r}
+ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | 
+                Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain'), aes(Date, Confirmed, col=Region)) + 
+  geom_point() + 
+  geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
+  scale_y_log10nice(limits=c(100,2e5)) + 
+  theme_bw()
+```
+
+
+## Deaths
+
+Graphing some countries with exponentially growing death rates at the moment:
+
+```{r}
+filename = file.list[2]
+f = file.path(path.series, filename)
+d = read.csv(f)
+d1 = d[,-c(1,3,4)]
+m1 = melt(d1)
+names(m1) = c('Region','Date','Confirmed')
+m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
+m1$Date = as.Date(m1$Date, format='%m.%d.%y')
+m4 = aggregate(m1$Confirmed, by=list(m1$Region, m1$Date), FUN=sum)
+names(m4) = c('Region','Date','Confirmed')
+m4p = which(m4$Region %in% top.regions)
+m5 = m4[m4p,]
+#ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | 
+#                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(Date, Confirmed, #col=Region, shape=Region)) + 
+#  geom_point() + 
+#  scale_y_log10nice(limits=c(2,2e4)) + 
+#  scale_shape_manual(values=1:nlevels(m5$Region)) +
+#  theme_bw()
+```
+
+
+
+
+```{r}
+m5$DateDays = round(as.numeric(difftime( m5$Date, '2020-02-14', units='days')))
+ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
+                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDays, Confirmed, col=Region, shape=Region)) + 
+  geom_point() + 
+  scale_x_continuous(limits=c(-30,35)) + xlab('Days since Valentine')+ 
+  scale_y_log10nice(limits=c(2,2e3), name='COVID-19 Deaths') + ylab('Deaths') + 
+  scale_shape_manual(values=1:nlevels(m5$Region)) +
+  theme_bw()
+```
+
+
+Renormalizing the start dates for `recorded deaths`, we find the dates when the `5th death` was recorded in each country:
+
+```{r}
+m6= subset(m5, Confirmed>5)
+q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
+names(q1) = c('Country','Start')
+kable(q1[order(q1$Start),])
+```
+
+
+Renormalizing the start dates for `recorded deaths`, we find the dates when the `15th death` was recorded in each country:
+
+```{r}
+m6= subset(m5, Confirmed>15)
+q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
+names(q1) = c('Country','Start')
+kable(q1[order(q1$Start),])
+```
+
+
+
+```{r}
+m7 = data.frame()
+for(q in 1:nrow(q1)) {
+  d1 = subset(m6, Region == q1$Country[q])
+  d1$DateDaysNorm = d1$DateDays - q1$Start[q]
+  m7 = rbind(m7, d1)
+}
+ggplot(subset(m7, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
+                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDaysNorm, Confirmed, col=Region)) + 
+  geom_point() + geom_path() + 
+  scale_x_continuous(limits=c(-0,30)) + xlab('Days since 15th death in region')+ 
+  scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
+  scale_shape_manual(values=1:nlevels(m5$Region)) +
+  theme_bw()
+```
