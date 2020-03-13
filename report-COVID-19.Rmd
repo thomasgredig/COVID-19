@@ -109,6 +109,7 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' |
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
   scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + 
   theme_bw()
+ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
 ```
 
 
