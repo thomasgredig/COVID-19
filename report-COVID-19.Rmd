@@ -68,10 +68,10 @@ ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) +
   theme_bw() 
 ```
 
-Only **10 days later** the list of countries hugely expanded, so on `2020-03-11`, we have:
+Only **10 days later** the list of countries hugely expanded, so on `2020-03-12`, we have:
 
 ```{r}
-SEL.DATE = '2020-03-11'
+SEL.DATE = '2020-03-12'
 m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
@@ -187,4 +187,5 @@ ggplot(subset(m7, Region=='US' | Region=='France' | Region=='Italy' | Region=='C
   scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
+ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)
 ```
