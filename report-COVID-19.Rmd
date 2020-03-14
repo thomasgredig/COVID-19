@@ -68,10 +68,10 @@ ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) +
   theme_bw() 
 ```
 
-Only **10 days later** the list of countries hugely expanded, so on `2020-03-12`, we have:
+Only **some days later** the list of countries hugely expanded, so on `r max(m1$Date)`, we have:
 
 ```{r}
-SEL.DATE = '2020-03-12'
+SEL.DATE = max(m1$Date)
 m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
