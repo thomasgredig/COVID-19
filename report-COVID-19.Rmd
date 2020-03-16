@@ -171,30 +171,32 @@ result = data.frame()
 for (r in levels(droplevels(m8$Region))) {
   m8a = subset(m8, Region == r)
   m8a = subset(m8a, DateDaysNorm <= 11)
-  if (r=='Japan') {
-    nls(data = m8a,
-      Confirmed ~ -100 + B*exp(DateDaysNorm/T1),
-      start = list( B=100, T1=13)) -> fit    
-      r1 =  data.frame(
-    Region = r,
-    T = summary(fit)$coeff[2],
-    T.sd = summary(fit)$coeff[4],
-    ampl = summary(fit)$coeff[1],
-    len = nrow(m8a)
-    )
-  } else {
-    nls(data = m8a,
-      Confirmed ~ A + B*exp(DateDaysNorm/T1),
-      start = list(A=-100, B=100, T1=3)) -> fit
-  r1 =  data.frame(
-    Region = r,
-    T = summary(fit)$coeff[3],
-    T.sd = summary(fit)$coeff[6],
-    ampl = summary(fit)$coeff[2],
-    len = nrow(m8a)
-    )
+  if (nrow(m8a)>5) {
+    if (r=='Japan') {
+      nls(data = m8a,
+        Confirmed ~ -100 + B*exp(DateDaysNorm/T1),
+        start = list( B=100, T1=13)) -> fit    
+        r1 =  data.frame(
+      Region = r,
+      T = summary(fit)$coeff[2],
+      T.sd = summary(fit)$coeff[4],
+      ampl = summary(fit)$coeff[1],
+      len = nrow(m8a)
+      )
+    } else {
+      nls(data = m8a,
+        Confirmed ~ A + B*exp(DateDaysNorm/T1),
+        start = list(A=-100, B=100, T1=3)) -> fit
+    r1 =  data.frame(
+      Region = r,
+      T = summary(fit)$coeff[3],
+      T.sd = summary(fit)$coeff[6],
+      ampl = summary(fit)$coeff[2],
+      len = nrow(m8a)
+      )
+    }
+    result=rbind(result,r1)
   }
-  result=rbind(result,r1)
 }
 ggplot(result, aes(x=reorder(Region,-T), T)) + 
   #geom_bar(stat='identity', fill='red') +
