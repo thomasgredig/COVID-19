@@ -34,7 +34,7 @@ We determine the order of countries it spread using the exponential growth model
 
 Japan and South Korea have a much slower growth in the death rate (see graph at the bottom). China, Italy, and U.S. appear to have common trajectories.
 
-The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
+The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
 
 
 ## Time Series

@@ -15,8 +15,8 @@ graph at the bottom). China, Italy, and U.S. appear to have common
 trajectories.
 
 The data is from the [CSSE COVID-19
-Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
-after analysis of [Coronavirus by Tomas
+Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of
+[Coronavirus by Tomas
 Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca).
 
 ## Time Series
@@ -27,7 +27,7 @@ to Mar 11:
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-15, we have:
+2020-03-16, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
@@ -42,27 +42,30 @@ the list of countries:
 
 |    | Region         | Date       |
 | -- | :------------- | :--------- |
-| 3  | China          | 2020-01-22 |
-| 4  | Cruise Ship    | 2020-02-10 |
-| 12 | Korea, South   | 2020-02-20 |
-| 11 | Japan          | 2020-02-21 |
-| 10 | Italy          | 2020-02-23 |
-| 9  | Iran           | 2020-02-26 |
-| 6  | France         | 2020-02-29 |
-| 7  | Germany        | 2020-03-01 |
-| 17 | Spain          | 2020-03-02 |
-| 21 | US             | 2020-03-03 |
-| 19 | Switzerland    | 2020-03-05 |
-| 20 | United Kingdom | 2020-03-05 |
-| 2  | Belgium        | 2020-03-06 |
-| 14 | Netherlands    | 2020-03-06 |
-| 15 | Norway         | 2020-03-06 |
-| 18 | Sweden         | 2020-03-06 |
-| 1  | Austria        | 2020-03-08 |
-| 13 | Malaysia       | 2020-03-09 |
-| 5  | Denmark        | 2020-03-10 |
-| 16 | Qatar          | 2020-03-11 |
-| 8  | Greece         | 2020-03-13 |
+| 5  | China          | 2020-01-22 |
+| 6  | Cruise Ship    | 2020-02-10 |
+| 14 | Korea, South   | 2020-02-20 |
+| 13 | Japan          | 2020-02-21 |
+| 12 | Italy          | 2020-02-23 |
+| 11 | Iran           | 2020-02-26 |
+| 8  | France         | 2020-02-29 |
+| 9  | Germany        | 2020-03-01 |
+| 20 | Spain          | 2020-03-02 |
+| 24 | US             | 2020-03-03 |
+| 22 | Switzerland    | 2020-03-05 |
+| 23 | United Kingdom | 2020-03-05 |
+| 3  | Belgium        | 2020-03-06 |
+| 16 | Netherlands    | 2020-03-06 |
+| 17 | Norway         | 2020-03-06 |
+| 21 | Sweden         | 2020-03-06 |
+| 2  | Austria        | 2020-03-08 |
+| 15 | Malaysia       | 2020-03-09 |
+| 1  | Australia      | 2020-03-10 |
+| 7  | Denmark        | 2020-03-10 |
+| 4  | Canada         | 2020-03-11 |
+| 19 | Qatar          | 2020-03-11 |
+| 10 | Greece         | 2020-03-13 |
+| 18 | Portugal       | 2020-03-13 |
 
 Make a graph with the trajectories from that point onwards:
 
@@ -77,16 +80,16 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## A  -114.922     52.180  -2.202   0.0522 .  
-    ## B   191.507     25.811   7.420 2.26e-05 ***
-    ## T1    4.074      0.178  22.880 5.74e-10 ***
+    ## A  -93.4514    43.0040  -2.173   0.0525 .  
+    ## B  178.0947    18.1400   9.818 8.88e-07 ***
+    ## T1   3.9717     0.1202  33.031 2.34e-12 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 54.28 on 10 degrees of freedom
+    ## Residual standard error: 53.66 on 11 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 4.787e-06
+    ## Achieved convergence tolerance: 1.003e-06
 
 ## Growth rates
 
@@ -115,13 +118,14 @@ when the `5th death` was recorded in each country:
 | 6  | Italy          |    10 |
 | 2  | Cruise Ship    |    14 |
 | 7  | Japan          |    16 |
-| 13 | US             |    17 |
+| 14 | US             |    17 |
 | 3  | France         |    20 |
 | 10 | Spain          |    22 |
-| 12 | United Kingdom |    25 |
+| 13 | United Kingdom |    25 |
 | 4  | Germany        |    28 |
 | 9  | Netherlands    |    28 |
-| 11 | Switzerland    |    28 |
+| 12 | Switzerland    |    28 |
+| 11 | Sweden         |    31 |
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `15th death` was recorded in each country:
@@ -129,14 +133,15 @@ when the `15th death` was recorded in each country:
 |    | Country        | Start |
 | -- | :------------- | ----: |
 | 1  | China          |  \-23 |
-| 3  | Iran           |    11 |
-| 4  | Italy          |    13 |
-| 6  | Korea, South   |    15 |
-| 10 | US             |    22 |
+| 4  | Iran           |    11 |
+| 5  | Italy          |    13 |
+| 7  | Korea, South   |    15 |
+| 11 | US             |    22 |
 | 2  | France         |    23 |
-| 8  | Spain          |    23 |
-| 5  | Japan          |    27 |
-| 9  | United Kingdom |    29 |
-| 7  | Netherlands    |    30 |
+| 9  | Spain          |    23 |
+| 6  | Japan          |    27 |
+| 10 | United Kingdom |    29 |
+| 8  | Netherlands    |    30 |
+| 3  | Germany        |    31 |
 
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
