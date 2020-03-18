@@ -1,18 +1,13 @@
 report-COVID-19
 ================
 Thomas Gredig
-3/12/2020
+3/17/2020
 
 # COVID-19
 
-We determine the order of countries it spread using the exponential
-growth model and determine that it started in China, then spread to
-Iran, South Korea, Italy, U.S., France, and then Spain based on
-confirmed deaths.
-
-Japan and South Korea have a much slower growth in the death rate (see
-graph at the bottom). China, Italy, and U.S. appear to have common
-trajectories.
+We are comparing the growth rates in different regions. Using a 1-fit
+exponential model, the confirmed cases generally fit the model well. The
+doubling time is then compared.
 
 The data is from the [CSSE COVID-19
 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of
