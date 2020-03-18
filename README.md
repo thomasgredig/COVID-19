@@ -76,19 +76,22 @@ Add an exponential fit:
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
     ## 
-    ## Formula: Confirmed ~ A * exp(DateDaysNorm/T1)
+    ## Formula: Confirmed ~ A0 * exp(DateDaysNorm/T1)
     ## 
     ## Parameters:
-    ##     Estimate Std. Error t value Pr(>|t|)    
-    ## A  144.88143    8.04509   18.01 4.73e-10 ***
-    ## T1   3.74980    0.06656   56.34 6.45e-16 ***
+    ##    Estimate Std. Error t value Pr(>|t|)    
+    ## T1  3.52274    0.01264   278.6   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 62.25 on 12 degrees of freedom
+    ## Residual standard error: 86.48 on 13 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 1.163e-06
+    ## Achieved convergence tolerance: 1.181e-07
+
+Semi-log plot:
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Growth rates
 
@@ -117,14 +120,14 @@ Growth rates since 100th confirmed case in different countries for first
     ## [1] "United Kingdom"
     ## [1] "US"
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## Deaths
 
 Graphing some countries with exponentially growing death rates at the
 moment:
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `5th death` was recorded in each country:
@@ -163,4 +166,4 @@ when the `15th death` was recorded in each country:
 | 8  | Netherlands    |    30 |
 | 3  | Germany        |    31 |
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
