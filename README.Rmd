@@ -30,9 +30,7 @@ scale_x_log10nice <- function(name=NULL,omag=seq(-10,20),...) {
 
 # COVID-19
 
-We determine the order of countries it spread using the exponential growth model and determine that it started in China, then spread to Iran, South Korea, Italy, U.S., France, and then Spain based on confirmed deaths.
-
-Japan and South Korea have a much slower growth in the death rate (see graph at the bottom). China, Italy, and U.S. appear to have common trajectories.
+We are comparing the growth rates in different regions. Using a 1-fit exponential model, the confirmed cases generally fit the model well. The doubling time is then compared.
 
 The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
 
@@ -245,7 +243,7 @@ m5$DateDays = round(as.numeric(difftime( m5$Date, '2020-02-14', units='days')))
 ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
                 Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDays, Confirmed, col=Region, shape=Region)) + 
   geom_point() + 
-  scale_x_continuous(limits=c(-30,35)) + xlab('Days since Valentine')+ 
+  scale_x_continuous(limits=c(-30,35)) + xlab('days since Valentine')+ 
   scale_y_log10nice(limits=c(2,2e3), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
@@ -283,7 +281,7 @@ for(q in 1:nrow(q1)) {
 ggplot(subset(m7, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
                 Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDaysNorm, Confirmed, col=Region)) + 
   geom_point() + geom_path() + 
-  scale_x_continuous(limits=c(-0,30)) + xlab('Days since 15th death in region')+ 
+  scale_x_continuous(limits=c(-0,30)) + xlab('days since 15th death in region')+ 
   scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
