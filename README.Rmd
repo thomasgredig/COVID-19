@@ -94,7 +94,7 @@ names(m4) = c('Region','Date','Confirmed')
 m4p = which(m4$Region %in% top.regions)
 m5 = m4[m4p,]
 ggplot(m5, aes(Date, Confirmed, col=Region)) + 
-  geom_point() + 
+  geom_line() + 
   scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + ylab('') + 
   theme_bw()
 ```
@@ -148,16 +148,18 @@ Add an exponential fit:
 ```{r}
 m8a = subset(m8, Region == 'US')
 nls(data = m8a,
-    Confirmed ~ A + B*exp(DateDaysNorm/T1),
-    start = list(A=-100, B=100, T1=3)) -> fit
+    Confirmed ~ A*exp(DateDaysNorm/T1),
+    start = list(A=100, T1=3)) -> fit
 m8b = data.frame(DateDaysNorm = 0:20,
                  Confirmed = predict(fit, list(DateDaysNorm=0:20)))
+T1 = signif(summary(fit)$coeff[2],2)
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
-  geom_point(col='red') + 
+  geom_point(col='red', size=2) + 
   geom_line(data=m8b) + ylab('Confirmed COVID-19 cases') + 
-  ggtitle(paste('US since',min(m8a$Date))) + xlab('days') + 
+  ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') + 
   scale_y_continuous(limits=c(0,1e4)) + 
-  scale_x_continuous(limits=c(0,20), breaks=0:4*7, minor_breaks=0:30)
+  scale_x_continuous(limits=c(0,20), breaks=0:4*7, minor_breaks=0:30) +
+  theme_bw()
 summary(fit)
 ```
 
@@ -169,32 +171,19 @@ Growth rates since 100th confirmed case in different countries for first 10 days
 ```{r}
 result = data.frame()
 for (r in levels(droplevels(m8$Region))) {
+  print(r)
   m8a = subset(m8, Region == r)
-  m8a = subset(m8a, DateDaysNorm <= 11)
+  m8a = subset(m8a, DateDaysNorm <= 10)
   if (nrow(m8a)>5) {
-    if (r=='Japan') {
-      nls(data = m8a,
-        Confirmed ~ -100 + B*exp(DateDaysNorm/T1),
-        start = list( B=100, T1=13)) -> fit    
-        r1 =  data.frame(
-      Region = r,
-      T = summary(fit)$coeff[2],
-      T.sd = summary(fit)$coeff[4],
-      ampl = summary(fit)$coeff[1],
-      len = nrow(m8a)
-      )
-    } else {
-      nls(data = m8a,
-        Confirmed ~ A + B*exp(DateDaysNorm/T1),
-        start = list(A=-100, B=100, T1=3)) -> fit
+    nls(data = m8a,
+      Confirmed ~ 100*exp(DateDaysNorm/T1),
+      start = list(T1=3)) -> fit
     r1 =  data.frame(
       Region = r,
-      T = summary(fit)$coeff[3],
-      T.sd = summary(fit)$coeff[6],
-      ampl = summary(fit)$coeff[2],
+      T = summary(fit)$coeff[1],
+      T.sd = summary(fit)$coeff[2],
       len = nrow(m8a)
       )
-    }
     result=rbind(result,r1)
   }
 }
@@ -202,23 +191,13 @@ ggplot(result, aes(x=reorder(Region,-T), T)) +
   #geom_bar(stat='identity', fill='red') +
   geom_point(col='red', size=3) + 
   geom_errorbar(aes(ymax=T+T.sd, ymin=T-T.sd)) + xlab('Region') +
-  scale_y_continuous(limits=c(0,20)) + ylab('confirmed cases doubling time (days)') + 
-  coord_flip()
-
-ggplot(result, aes(x=reorder(Region,ampl), ampl)) + 
-  geom_bar(stat='identity', fill='red') +
-  xlab('Region') + ylab('Amplitude Growth for Confirmed Cases in first 11 days') + 
+  scale_y_continuous(limits=c(0,14)) + ylab('confirmed cases doubling time (days)') + 
   coord_flip()
 ```
 
-```{r}
-ggplot(result, aes(T, ampl, label=Region)) +
-  geom_point(size=3, col='red') +
-  geom_point(data=subset(result, Region=='US'),size=2,col='black') +
-  geom_text(check_overlap = TRUE, vjust=-0.8) +
-  xlab('confirmed cases doubling time (days)')  +
-  ylab('confirmed case amplitude')
-```
+
+
+
 
 ## Deaths
 

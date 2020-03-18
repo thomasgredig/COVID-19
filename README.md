@@ -76,36 +76,55 @@ Add an exponential fit:
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
     ## 
-    ## Formula: Confirmed ~ A + B * exp(DateDaysNorm/T1)
+    ## Formula: Confirmed ~ A * exp(DateDaysNorm/T1)
     ## 
     ## Parameters:
-    ##    Estimate Std. Error t value Pr(>|t|)    
-    ## A  -93.4514    43.0040  -2.173   0.0525 .  
-    ## B  178.0947    18.1400   9.818 8.88e-07 ***
-    ## T1   3.9717     0.1202  33.031 2.34e-12 ***
+    ##     Estimate Std. Error t value Pr(>|t|)    
+    ## A  144.88143    8.04509   18.01 4.73e-10 ***
+    ## T1   3.74980    0.06656   56.34 6.45e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 53.66 on 11 degrees of freedom
+    ## Residual standard error: 62.25 on 12 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 1.003e-06
+    ## Achieved convergence tolerance: 1.163e-06
 
 ## Growth rates
 
 Growth rates since 100th confirmed case in different countries for first
 10 days.
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+    ## [1] "Australia"
+    ## [1] "Austria"
+    ## [1] "Belgium"
+    ## [1] "Canada"
+    ## [1] "China"
+    ## [1] "France"
+    ## [1] "Germany"
+    ## [1] "Greece"
+    ## [1] "Iran"
+    ## [1] "Italy"
+    ## [1] "Japan"
+    ## [1] "Korea, South"
+    ## [1] "Malaysia"
+    ## [1] "Netherlands"
+    ## [1] "Norway"
+    ## [1] "Portugal"
+    ## [1] "Spain"
+    ## [1] "Sweden"
+    ## [1] "Switzerland"
+    ## [1] "United Kingdom"
+    ## [1] "US"
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Deaths
 
 Graphing some countries with exponentially growing death rates at the
 moment:
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `5th death` was recorded in each country:
@@ -144,4 +163,4 @@ when the `15th death` was recorded in each country:
 | 8  | Netherlands    |    30 |
 | 3  | Germany        |    31 |
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
