@@ -12,7 +12,7 @@ doubling time is then compared.
 The data is from the [CSSE COVID-19
 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of
 [Coronavirus by Tomas
-Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca).
+Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). The [Infection Trajectory](https://www.visualcapitalist.com/infection-trajectory-flattening-the-covid19-curve/) confirms the fast growth in mid-March.
 
 ## Time Series
 
