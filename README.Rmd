@@ -107,7 +107,7 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' |
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
   scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + 
   theme_bw()
-ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
+# ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
 ```
 
 
@@ -138,7 +138,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed, col=Region)) +
   scale_y_log10nice(name='Confirmed COVID-19 Cases') + 
   scale_x_continuous(limits=c(0,22)) + xlab('Days since 100th confirmed case') + 
   theme_bw()
-ggsave('renormalized-COVID-19-confirmed.png',width=6,height=4, dpi=150)
+# ggsave('renormalized-COVID-19-confirmed.png',width=6,height=4, dpi=150)
 ```
 
 Add an exponential fit:
@@ -284,5 +284,5 @@ ggplot(subset(m7, Region=='US' | Region=='France' | Region=='Italy' | Region=='C
   scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
-ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)
+# ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)
 ```

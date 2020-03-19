@@ -12,7 +12,7 @@ doubling time is then compared.
 The data is from the [CSSE COVID-19
 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of
 [Coronavirus by Tomas
-Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). The [Infection Trajectory](https://www.visualcapitalist.com/infection-trajectory-flattening-the-covid19-curve/) confirms the fast growth in mid-March.
+Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca).
 
 ## Time Series
 
@@ -22,7 +22,7 @@ to Mar 11:
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-17, we have:
+2020-03-18, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
@@ -44,15 +44,16 @@ the list of countries:
 | 16 | Italy          | 2020-02-23 |
 | 14 | Iran           | 2020-02-26 |
 | 11 | France         | 2020-02-29 |
+| 24 | Singapore      | 2020-02-29 |
 | 12 | Germany        | 2020-03-01 |
-| 24 | Spain          | 2020-03-02 |
-| 28 | US             | 2020-03-03 |
-| 26 | Switzerland    | 2020-03-05 |
-| 27 | United Kingdom | 2020-03-05 |
+| 25 | Spain          | 2020-03-02 |
+| 29 | US             | 2020-03-03 |
+| 27 | Switzerland    | 2020-03-05 |
+| 28 | United Kingdom | 2020-03-05 |
 | 3  | Belgium        | 2020-03-06 |
 | 20 | Netherlands    | 2020-03-06 |
 | 21 | Norway         | 2020-03-06 |
-| 25 | Sweden         | 2020-03-06 |
+| 26 | Sweden         | 2020-03-06 |
 | 2  | Austria        | 2020-03-08 |
 | 19 | Malaysia       | 2020-03-09 |
 | 1  | Australia      | 2020-03-10 |
@@ -79,14 +80,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1 3.512420   0.008733   402.2   <2e-16 ***
+    ## T1   3.5463     0.0108   328.3   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 87.45 on 14 degrees of freedom
+    ## Residual standard error: 146.3 on 15 degrees of freedom
     ## 
-    ## Number of iterations to convergence: 4 
-    ## Achieved convergence tolerance: 9.925e-06
+    ## Number of iterations to convergence: 5 
+    ## Achieved convergence tolerance: 1.738e-07
 
 Semi-log plot:
 
@@ -111,21 +112,24 @@ when the `5th death` was recorded in each country:
 
 |    | Country        | Start |
 | -- | :------------- | ----: |
-| 2  | China          |  \-23 |
-| 6  | Iran           |     9 |
-| 9  | Korea, South   |     9 |
-| 7  | Italy          |    10 |
-| 3  | Cruise Ship    |    14 |
-| 8  | Japan          |    16 |
-| 15 | US             |    17 |
-| 4  | France         |    20 |
-| 11 | Spain          |    22 |
-| 14 | United Kingdom |    25 |
-| 5  | Germany        |    28 |
-| 10 | Netherlands    |    28 |
-| 13 | Switzerland    |    28 |
-| 12 | Sweden         |    31 |
-| 1  | Belgium        |    32 |
+| 4  | China          |  \-23 |
+| 8  | Iran           |     9 |
+| 11 | Korea, South   |     9 |
+| 9  | Italy          |    10 |
+| 5  | Cruise Ship    |    14 |
+| 10 | Japan          |    16 |
+| 18 | US             |    17 |
+| 6  | France         |    20 |
+| 14 | Spain          |    22 |
+| 17 | United Kingdom |    25 |
+| 7  | Germany        |    28 |
+| 12 | Netherlands    |    28 |
+| 16 | Switzerland    |    28 |
+| 15 | Sweden         |    31 |
+| 2  | Belgium        |    32 |
+| 1  | Australia      |    33 |
+| 3  | Canada         |    33 |
+| 13 | Norway         |    33 |
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `15th death` was recorded in each country:
