@@ -22,7 +22,7 @@ to Mar 11:
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-18, we have:
+2020-03-19, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
@@ -39,33 +39,39 @@ the list of countries:
 | -- | :------------- | :--------- |
 | 6  | China          | 2020-01-22 |
 | 7  | Cruise Ship    | 2020-02-10 |
-| 18 | Korea, South   | 2020-02-20 |
-| 17 | Japan          | 2020-02-21 |
-| 16 | Italy          | 2020-02-23 |
-| 14 | Iran           | 2020-02-26 |
+| 21 | Korea, South   | 2020-02-20 |
+| 20 | Japan          | 2020-02-21 |
+| 19 | Italy          | 2020-02-23 |
+| 16 | Iran           | 2020-02-26 |
 | 11 | France         | 2020-02-29 |
-| 24 | Singapore      | 2020-02-29 |
+| 30 | Singapore      | 2020-02-29 |
 | 12 | Germany        | 2020-03-01 |
-| 25 | Spain          | 2020-03-02 |
-| 29 | US             | 2020-03-03 |
-| 27 | Switzerland    | 2020-03-05 |
-| 28 | United Kingdom | 2020-03-05 |
+| 31 | Spain          | 2020-03-02 |
+| 35 | US             | 2020-03-03 |
+| 33 | Switzerland    | 2020-03-05 |
+| 34 | United Kingdom | 2020-03-05 |
 | 3  | Belgium        | 2020-03-06 |
-| 20 | Netherlands    | 2020-03-06 |
-| 21 | Norway         | 2020-03-06 |
-| 26 | Sweden         | 2020-03-06 |
+| 24 | Netherlands    | 2020-03-06 |
+| 25 | Norway         | 2020-03-06 |
+| 32 | Sweden         | 2020-03-06 |
 | 2  | Austria        | 2020-03-08 |
-| 19 | Malaysia       | 2020-03-09 |
+| 23 | Malaysia       | 2020-03-09 |
 | 1  | Australia      | 2020-03-10 |
 | 9  | Denmark        | 2020-03-10 |
 | 5  | Canada         | 2020-03-11 |
-| 15 | Israel         | 2020-03-11 |
-| 23 | Qatar          | 2020-03-11 |
+| 18 | Israel         | 2020-03-11 |
+| 29 | Qatar          | 2020-03-11 |
+| 14 | Iceland        | 2020-03-12 |
 | 4  | Brazil         | 2020-03-13 |
 | 8  | Czechia        | 2020-03-13 |
 | 10 | Finland        | 2020-03-13 |
 | 13 | Greece         | 2020-03-13 |
-| 22 | Portugal       | 2020-03-13 |
+| 28 | Portugal       | 2020-03-13 |
+| 17 | Ireland        | 2020-03-14 |
+| 27 | Poland         | 2020-03-14 |
+| 15 | Indonesia      | 2020-03-15 |
+| 26 | Pakistan       | 2020-03-16 |
+| 22 | Luxembourg     | 2020-03-17 |
 
 Make a graph with the trajectories from that point onwards:
 
@@ -80,14 +86,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1   3.5463     0.0108   328.3   <2e-16 ***
+    ## T1  3.44684    0.02314     149   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 146.3 on 15 degrees of freedom
+    ## Residual standard error: 532.8 on 16 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 1.738e-07
+    ## Achieved convergence tolerance: 2.724e-07
 
 Semi-log plot:
 
@@ -112,41 +118,48 @@ when the `5th death` was recorded in each country:
 
 |    | Country        | Start |
 | -- | :------------- | ----: |
-| 4  | China          |  \-23 |
-| 8  | Iran           |     9 |
-| 11 | Korea, South   |     9 |
-| 9  | Italy          |    10 |
-| 5  | Cruise Ship    |    14 |
-| 10 | Japan          |    16 |
-| 18 | US             |    17 |
-| 6  | France         |    20 |
-| 14 | Spain          |    22 |
-| 17 | United Kingdom |    25 |
-| 7  | Germany        |    28 |
-| 12 | Netherlands    |    28 |
-| 16 | Switzerland    |    28 |
-| 15 | Sweden         |    31 |
-| 2  | Belgium        |    32 |
+| 6  | China          |  \-23 |
+| 13 | Iran           |     9 |
+| 16 | Korea, South   |     9 |
+| 14 | Italy          |    10 |
+| 7  | Cruise Ship    |    14 |
+| 15 | Japan          |    16 |
+| 23 | US             |    17 |
+| 9  | France         |    20 |
+| 19 | Spain          |    22 |
+| 22 | United Kingdom |    25 |
+| 10 | Germany        |    28 |
+| 17 | Netherlands    |    28 |
+| 21 | Switzerland    |    28 |
+| 20 | Sweden         |    31 |
+| 3  | Belgium        |    32 |
 | 1  | Australia      |    33 |
-| 3  | Canada         |    33 |
-| 13 | Norway         |    33 |
+| 5  | Canada         |    33 |
+| 12 | Indonesia      |    33 |
+| 18 | Norway         |    33 |
+| 2  | Austria        |    34 |
+| 4  | Brazil         |    34 |
+| 8  | Denmark        |    34 |
+| 11 | Greece         |    34 |
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `15th death` was recorded in each country:
 
 |    | Country        | Start |
 | -- | :------------- | ----: |
-| 1  | China          |  \-23 |
-| 4  | Iran           |    11 |
-| 5  | Italy          |    13 |
-| 7  | Korea, South   |    15 |
-| 12 | US             |    22 |
-| 2  | France         |    23 |
-| 9  | Spain          |    23 |
-| 6  | Japan          |    27 |
-| 11 | United Kingdom |    29 |
-| 8  | Netherlands    |    30 |
-| 3  | Germany        |    31 |
-| 10 | Switzerland    |    32 |
+| 2  | China          |  \-23 |
+| 6  | Iran           |    11 |
+| 7  | Italy          |    13 |
+| 9  | Korea, South   |    15 |
+| 14 | US             |    22 |
+| 3  | France         |    23 |
+| 11 | Spain          |    23 |
+| 8  | Japan          |    27 |
+| 13 | United Kingdom |    29 |
+| 10 | Netherlands    |    30 |
+| 4  | Germany        |    31 |
+| 12 | Switzerland    |    32 |
+| 5  | Indonesia      |    33 |
+| 1  | Belgium        |    34 |
 
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
