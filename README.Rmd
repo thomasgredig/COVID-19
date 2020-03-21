@@ -150,8 +150,8 @@ A0 = m8a$Confirmed[1]
 nls(data = m8a,
     Confirmed ~ A0*exp(DateDaysNorm/T1),
     start = list( T1=3)) -> fit
-m8b = data.frame(DateDaysNorm = 0:23,
-                 Confirmed = predict(fit, list(DateDaysNorm=0:23)))
+m8b = data.frame(DateDaysNorm = 0:30,
+                 Confirmed = predict(fit, list(DateDaysNorm=0:30)))
 T1 = signif(summary(fit)$coeff[1],2)
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
   geom_point(col='red', size=2) + 
@@ -169,44 +169,58 @@ Semi-log plot:
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
   geom_point(col='red', size=2) + 
   geom_line(data=m8b) + ylab('confirmed COVID-19 cases') + 
-  ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +   scale_y_log10nice(name='Confirmed COVID-19 cases') + 
-  scale_x_continuous(limits=c(0,20), breaks=0:4*7, minor_breaks=0:30) +
+  ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +
+  scale_y_log10nice(name='Confirmed COVID-19 cases') + 
+  scale_x_continuous(limits=c(0,28), breaks=0:5*7, minor_breaks=0:30) +
+  geom_text(data = subset(m8a, DateDaysNorm==max(DateDaysNorm)),
+                          aes(label = Date), hjust=-0.2) + 
   theme_bw()
 ```
 
 
 ## Growth rates
 
-Growth rates since 100th confirmed case in different countries for first 15 days.
+Growth rates since 100th confirmed case in different countries for the first 10 days compared with the range from 10-20 days. If the dark line is on the right, then the doubling time is decreasing; if the dark line is left, it means that doubling time is getting faster.
 
 ```{r}
 result = data.frame()
 for (r in levels(droplevels(m8$Region))) {
   m8a = subset(m8, Region == r)
-  m8a = subset(m8a, DateDaysNorm <= 15)
-  if (nrow(m8a)>5) {
-    A0 = m8a$Confirmed[1]
-    nls(data = m8a,
+  m8b = subset(m8a, DateDaysNorm <= 10)
+  if (nrow(m8b)>5) {
+    A0 = m8b$Confirmed[1]
+    nls(data = m8b,
       Confirmed ~ A0*exp(DateDaysNorm/T1),
       start = list(T1=3)) -> fit
-    r1 =  data.frame(
-      Region = r,
-      T = summary(fit)$coeff[1],
-      T.sd = summary(fit)$coeff[2],
-      len = nrow(m8a)
-      )
-    result=rbind(result,r1)
+    m8b = subset(m8a, DateDaysNorm >= 10 & DateDaysNorm <= 20)
+    #plot(m8b$DateDaysNorm, m8b$Confirmed)
+    A0 = m8b$Confirmed[1]
+    if (nrow(m8b)>5) {
+      nls(data = m8b,
+        Confirmed ~ A0*exp((DateDaysNorm-10)/T1),
+        start = list(T1=3)) -> fit2
+      r1 =  data.frame(
+        Region = r,
+        T = summary(fit)$coeff[1],
+        T.sd = summary(fit)$coeff[2],
+        T2 = summary(fit2)$coeff[1],
+        T2.sd = summary(fit2)$coeff[2],
+        len = nrow(m8b)
+        )
+      result=rbind(result,r1)
+    }
   }
 }
-ggplot(result, aes(x=reorder(Region,-T), T)) + 
-  #geom_bar(stat='identity', fill='red') +
-  geom_point(col='red', size=3) + 
-  geom_errorbar(aes(ymax=T+T.sd, ymin=T-T.sd)) + xlab('Region') +
-  scale_y_continuous(limits=c(0,22)) + ylab('confirmed cases doubling time (days)') + 
-  coord_flip()
+
+ggplot(result, aes(x=reorder(Region,-T2), y=T2)) + 
+  geom_crossbar(aes(ymin=T2, ymax=T), fill='green') + xlab('Region') +
+  geom_crossbar(data = subset(result, T2 < T),
+                aes(ymin=T2, ymax=T), fill='orange') +
+  scale_y_log10(limits=c(2,30)) + ylab('confirmed cases doubling time (days)') + 
+  coord_flip() +
+  theme_bw() +
+  theme(legend.position = 'none')
 ```
-
-
 
 
 

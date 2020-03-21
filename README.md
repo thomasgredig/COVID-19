@@ -108,8 +108,10 @@ Semi-log plot:
 
 ## Growth rates
 
-Growth rates since 100th confirmed case in different countries for first
-15 days.
+Growth rates since 100th confirmed case in different countries for the
+first 10 days compared with the range from 10-20 days. If the dark line
+is on the right, then the doubling time is decreasing; if the dark line
+is left, it means that doubling time is getting faster.
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
