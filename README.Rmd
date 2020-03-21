@@ -77,6 +77,7 @@ m3 = subset(m3, Confirmed>NUM.CASES)
 #m3$Region = as.character(levels(m3$Region)[m3$Region])
 ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
   geom_bar(stat='identity', fill='red') + 
+  geom_bar(stat='identity', fill='blue', data=subset(m3,Region=='US')) + 
   xlab('') +
   ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
   scale_y_log10nice() + 
@@ -102,7 +103,7 @@ Select a few countries with exponential growth in comparison with China:
 
 ```{r}
 ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | 
-                Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain'), aes(Date, Confirmed, col=Region)) + 
+                Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain' | Region == 'Korea, South'), aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
   scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + 
@@ -176,13 +177,13 @@ ggplot(m8a, aes(DateDaysNorm, Confirmed)) +
 
 ## Growth rates
 
-Growth rates since 100th confirmed case in different countries for first 10 days.
+Growth rates since 100th confirmed case in different countries for first 15 days.
 
 ```{r}
 result = data.frame()
 for (r in levels(droplevels(m8$Region))) {
   m8a = subset(m8, Region == r)
-  m8a = subset(m8a, DateDaysNorm <= 10)
+  m8a = subset(m8a, DateDaysNorm <= 15)
   if (nrow(m8a)>5) {
     A0 = m8a$Confirmed[1]
     nls(data = m8a,
@@ -201,7 +202,7 @@ ggplot(result, aes(x=reorder(Region,-T), T)) +
   #geom_bar(stat='identity', fill='red') +
   geom_point(col='red', size=3) + 
   geom_errorbar(aes(ymax=T+T.sd, ymin=T-T.sd)) + xlab('Region') +
-  scale_y_continuous(limits=c(0,14)) + ylab('confirmed cases doubling time (days)') + 
+  scale_y_continuous(limits=c(0,22)) + ylab('confirmed cases doubling time (days)') + 
   coord_flip()
 ```
 
@@ -252,17 +253,17 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='C
 Renormalizing the start dates for `recorded deaths`, we find the dates when the `5th death` was recorded in each country:
 
 ```{r}
-m6= subset(m5, Confirmed>5)
+m6= subset(m5, Confirmed >= 5)
 q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
 names(q1) = c('Country','Start')
-kable(q1[order(q1$Start),])
+#kable(q1[order(q1$Start),])
 ```
 
 
-Renormalizing the start dates for `recorded deaths`, we find the dates when the `15th death` was recorded in each country:
+Renormalizing the start dates for `recorded deaths`, we find the dates when the `10th death` was recorded in each country:
 
 ```{r}
-m6= subset(m5, Confirmed>15)
+m6= subset(m5, Confirmed >= 10)
 q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
 names(q1) = c('Country','Start')
 kable(q1[order(q1$Start),])
@@ -277,9 +278,14 @@ for(q in 1:nrow(q1)) {
   d1$DateDaysNorm = d1$DateDays - q1$Start[q]
   m7 = rbind(m7, d1)
 }
-ggplot(subset(m7, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
-                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDaysNorm, Confirmed, col=Region)) + 
-  geom_point() + geom_path() + 
+```
+
+
+```{r}
+c.list = c('China','Spain','Italy','Iran','Japan','Korea, South','Switzerland','US')
+ggplot(subset(m7, Region %in% c.list), aes(DateDaysNorm, Confirmed, col=Region)) + 
+  geom_path(data=m7, col='grey') + 
+  geom_point() + geom_path() +
   scale_x_continuous(limits=c(-0,30)) + xlab('days since 15th death in region')+ 
   scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
