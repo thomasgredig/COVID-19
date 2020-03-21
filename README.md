@@ -16,21 +16,19 @@ Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f
 
 ## Time Series
 
-Regions with more than 100 confirmed cases increased rapidly from Mar 1
-to Mar 11:
-
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+Regions with more than 100 confirmed cases increased rapidly from a few
+to many.
 
 Only **some days later** the list of countries hugely expanded, so on
 2020-03-20, we have:
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Select a few countries with exponential growth in comparison with China:
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Renormalize the growth starting with the 100th confirmed case. Here is
 the list of countries:
@@ -82,11 +80,17 @@ the list of countries:
 
 Make a graph with the trajectories from that point onwards:
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Scale by population of the country:
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 Add an exponential fit:
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
     ## 
     ## Formula: Confirmed ~ A0 * exp(DateDaysNorm/T1)
@@ -104,7 +108,7 @@ Add an exponential fit:
 
 Semi-log plot:
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## Growth rates
 
@@ -113,14 +117,14 @@ first 10 days compared with the range from 10-20 days. If the dark line
 is on the right, then the doubling time is decreasing; if the dark line
 is left, it means that doubling time is getting faster.
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ## Deaths
 
 Graphing some countries with exponentially growing death rates at the
 moment:
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `5th death` was recorded in each country:
@@ -148,4 +152,4 @@ when the `10th death` was recorded in each country:
 | 2  | Brazil         |    35 |
 | 3  | Canada         |    35 |
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->

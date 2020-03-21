@@ -1,0 +1,224 @@
+"","country","x","p"
+"1","China",1,1.39e+09
+"2","India",2,1.26e+09
+"3","United States",3,325723000
+"4","Indonesia",4,246813000
+"5","Brazil",5,209401000
+"6","Pakistan",6,193419000
+"7","Bangladesh",7,168158000
+"8","Nigeria",8,160931000
+"9","Russia",9,136696000
+"10","Japan",10,127993000
+"11","Mexico",11,119146000
+"12","Ethiopia",12,97155000
+"13","Philippines",13,96840000
+"14","Vietnam",14,95029000
+"15","Egypt",15,88175000
+"16","Turkey",16,82640000
+"17","Germany",17,82513000
+"18","Iran",18,79917000
+"19","Democratic Republic of the Congo",19,78016000
+"20","Thailand",20,69064000
+"21","France",21,62339000
+"22","United Kingdom",22,61417000
+"23","Italy",23,57818000
+"24","Burma",24,54970000
+"25","Colombia",25,52086000
+"26","South Korea",26,49092000
+"27","South Africa",27,47902000
+"28","Tanzania",28,45598000
+"29","Spain",29,44372000
+"30","Kenya",30,44194000
+"31","Sudan",31,44035000
+"32","Argentina",32,42676000
+"33","Uganda",33,41918000
+"34","Ukraine",34,41849000
+"35","Afghanistan",35,41401000
+"36","Poland",36,38110000
+"37","Algeria",37,38085000
+"38","Iraq",38,36473000
+"39","Morocco",39,36152000
+"40","Canada",40,35051000
+"41","Nepal",41,32747000
+"42","Peru",42,32172000
+"43","Venezuela",43,31330000
+"44","Saudi Arabia",44,30828000
+"45","Uzbekistan",45,30651000
+"46","Malaysia",46,29558000
+"47","Yemen",47,28480000
+"48","Ghana",48,26562000
+"49","Madagascar",49,23813000
+"50","Syria",50,23802000
+"51","Mozambique",51,23513000
+"52","North Korea",52,23299000
+"53","Sri Lanka",53,22293000
+"54","Australia",54,22250000
+"55","Cote d'Ivoire",55,21553000
+"56","Angola",56,20947000
+"57","Romania",57,20871000
+"58","Niger",58,19283000
+"59","Cameroon",59,19040000
+"60","Mali",60,18093000
+"61","Chile",61,17926000
+"62","Burkina Faso",62,17678000
+"63","Cambodia",63,17066000
+"64","Netherlands",64,16812000
+"65","Malawi",65,15998000
+"66","Guatemala",66,15869000
+"67","Ecuador",67,15144000
+"68","Kazakhstan",68,14877000
+"69","Senegal",69,14538000
+"70","Zambia",70,13841000
+"71","Zimbabwe",71,13804000
+"72","Chad",72,12832000
+"73","Guinea",73,11890000
+"74","Cuba",74,11437000
+"75","Rwanda",75,11262000
+"76","Greece",76,11233000
+"77","Benin",77,11217000
+"78","Tunisia",78,11140000
+"79","Somalia",79,10970000
+"80","Bolivia",80,10854000
+"81","Portugal",81,10827000
+"82","Burundi",82,10617000
+"83","Belgium",83,10540000
+"84","Serbia and Montenegro",84,10416000
+"85","Dominican Republic",85,10124000
+"86","Czech Republic",86,10066000
+"87","Hungary",87,9802000
+"88","Haiti",88,9751000
+"89","Sweden",89,9315000
+"90","Belarus",90,9218000
+"91","Azerbaijan",91,9083000
+"92","Honduras",92,8780000
+"93","Austria",93,8288000
+"94","El Salvador",94,8017000
+"95","Togo",95,7847000
+"96","Israel",96,7838000
+"97","Hong Kong",97,7764000
+"98","Paraguay",98,7613000
+"99","Tajikistan",99,7605000
+"100","Switzerland",100,7334000
+"101","Laos",101,7306000
+"102","Bulgaria",102,7156000
+"103","Libya",103,7018000
+"104","Papua New Guinea",104,7013000
+"105","Jordan",105,6956000
+"106","Sierra Leone",106,6897000
+"107","Nicaragua",107,6637000
+"108","Kyrgyzstan",108,5852000
+"109","Eritrea",109,5840000
+"110","United Arab Emirates",110,5588000
+"111","Denmark",111,5560000
+"112","Turkmenistan",112,5498000
+"113","Slovakia",113,5385000
+"114","Finland",114,5359000
+"115","Costa Rica",115,4983000
+"116","Norway",116,4841000
+"117","Singapore",117,4815000
+"118","Ireland",118,4674000
+"119","Central African Republic",119,4647000
+"120","Croatia",120,4454000
+"121","Liberia",121,4381000
+"122","New Zealand",122,4302000
+"123","Georgia",123,4183000
+"124","Puerto Rico",124,4157000
+"125","Moldova",125,4114000
+"126","Mauritania",126,3988000
+"127","Lebanon",127,3965000
+"128","Bosnia and Herzegovina",128,3893000
+"129","Panama",129,3774000
+"130","Uruguay",130,3676000
+"131","Kuwait",131,3381000
+"132","Albania",132,3325000
+"133","Lithuania",133,3288000
+"134","Oman",134,3173000
+"135","Mongolia",135,2988000
+"136","Armenia",136,2970000
+"137","Jamaica",137,2748000
+"138","Bhutan",138,2684000
+"139","Namibia",139,2248000
+"140","Latvia",140,2191000
+"141","Guinea-Bissau",141,2133000
+"142","Slovenia",142,1942000
+"143","The Gambia",143,1889000
+"144","Lesotho",144,1744000
+"145","Botswana",145,1690000
+"146","Gabon",146,1605000
+"147","East Timor",147,1486000
+"148","Mauritius",148,1344000
+"149","Trinidad and Tobago",149,1338000
+"150","Estonia",150,1292000
+"151","Comoros",151,1019000
+"152","Swaziland",152,992000
+"153","Qatar",153,972000
+"154","Djibouti",154,930000
+"155","Cyprus",155,927000
+"156","Fiji",156,903000
+"157","Reunion",157,886000
+"158","Bahrain",158,852000
+"159","Guyana",159,742000
+"160","Cape Verde",160,628000
+"161","Equatorial Guinea",161,627000
+"162","Solomon Islands",162,596000
+"163","Western Sahara",163,526000
+"164","Luxembourg",164,523000
+"165","Macau",165,493000
+"166","Suriname",166,472000
+"167","Guadeloupe",167,472000
+"168","Brunei",168,453000
+"169","Malta",169,419000
+"170","Maldives",170,416000
+"171","Martinique",171,404000
+"172","The Bahamas",172,365000
+"173","Belize",173,321000
+"174","Iceland",174,319000
+"175","French Polynesia",175,291000
+"176","New Caledonia",176,277000
+"177","Barbados",177,276000
+"178","Vanuatu",178,252000
+"179","French Guiana",179,232000
+"180","Guam",180,194000
+"181","Netherlands Antilles",181,193000
+"182","Sao Tome and Principe",182,192000
+"183","Samoa",183,190000
+"184","Saint Lucia",184,174000
+"185","Saint Vincent and the Grenadines",185,124000
+"186","Grenada",186,119000
+"187","Kiribati",187,118000
+"188","Federated States of Micronesia",188,116000
+"189","Virgin Islands",189,111000
+"190","Aruba",190,106000
+"191","Tonga",191,104000
+"192","Northern Mariana Islands",192,98000
+"193","Antigua and Barbuda",193,92000
+"194","Seychelles",194,88000
+"195","Dominica",195,87000
+"196","Marshall Islands",196,83000
+"197","American Samoa",197,78000
+"198","Andorra",198,68000
+"199","Bermuda",199,65000
+"200","Greenland",200,58000
+"201","Cayman Islands",201,51000
+"202","Faroe Islands",202,50000
+"203","Saint Kitts and Nevis",203,47000
+"204","Monaco",204,40000
+"205","Liechtenstein",205,37000
+"206","Turks and Caicos Islands",206,30000
+"207","San Marino",207,30000
+"208","Gibraltar",208,28000
+"209","British Virgin Islands",209,24000
+"210","Palau",210,21000
+"211","Wallis and Futuna",211,18000
+"212","Cook Islands",212,17000
+"213","Nauru",213,15000
+"214","Anguilla",214,14000
+"215","Tuvalu",215,11000
+"216","Saint Pierre and Miquelon",216,6000
+"217","Saint Helena",217,5000
+"218","Montserrat",218,5000
+"219","Falkland Islands (Islas Malvinas)",219,3000
+"220","Niue",220,2000
+"221","Tokelau",221,2000
+"222","Holy See (Vatican City)",222,1000
+"223","Pitcairn Islands",223,0

@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message  = FALSE)
 library(ggplot2)
 library(reshape2)
 library(knitr)
+library(dplyr)
 scientific_10 <- function(x) {
     xout <- gsub("1e", "10^{", format(x),fixed=TRUE)
     xout <- gsub("{-0", "{-", xout,fixed=TRUE)
@@ -35,9 +36,21 @@ We are comparing the growth rates in different regions. Using a 1-fit exponentia
 The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
 
 
+```{r}
+dc = read.csv('data/population-by-country-2015.csv')
+getPopulation <- function(countryName) {
+  if (countryName=='US') { countryName='United States' }
+  if (countryName=='Czechia') { countryName ='Czech Republic'}
+  if (countryName=='Korea, South') { countryName = 'South Korea' }
+  mc = which(dc$country==countryName)
+  dc$p[mc]
+}
+```
+
+
 ## Time Series
 
-Regions with more than 100 confirmed cases increased rapidly from Mar 1 to Mar 11:
+Regions with more than 100 confirmed cases increased rapidly from a few to many.
 
 ```{r}
 path.series = 'csse_covid_19_data/csse_covid_19_time_series'
@@ -57,13 +70,13 @@ m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
-ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
-  geom_bar(stat='identity', fill='red') +
-  xlab('') +
-  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') +
-  scale_y_log10nice() + 
-  coord_flip() + 
-  theme_bw() 
+#ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
+#  geom_bar(stat='identity', fill='red') +
+#  xlab('') +
+#  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') +
+#  scale_y_log10nice() + 
+#  coord_flip() + 
+#  theme_bw() 
 ```
 
 Only **some days later** the list of countries hugely expanded, so on `r max(m1$Date)`, we have:
@@ -130,6 +143,7 @@ for(q in 1:nrow(q.dates)) {
   if (!(q.dates$Region[q] %in% c('Cruise Ship','Denmark','Qatar'))) {
     d1 = subset(m5a, Region == q.dates$Region[q])
     d1$DateDaysNorm = round(as.numeric(d1$DateDays - difftime(q.dates$Date[q],'2020-02-14', units='days')))
+    d1$Population = getPopulation(as.character(levels(q.dates$Region)[q.dates$Region[q]]))
     m8 = rbind(m8, d1)
   }
 }
@@ -141,6 +155,46 @@ ggplot(m8, aes(DateDaysNorm, Confirmed, col=Region)) +
   theme_bw()
 # ggsave('renormalized-COVID-19-confirmed.png',width=6,height=4, dpi=150)
 ```
+
+
+Scale by population of the country:
+
+
+```{r}
+m8 %>% 
+  group_by(Region) %>%
+  filter(DateDaysNorm<26) %>%
+  summarize(Confirmed = max(Confirmed),
+            Population=max(Population), 
+            DateDaysNorm = max(DateDaysNorm)) -> m8z
+
+ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
+  geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
+  geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
+  scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
+  scale_x_continuous(limits=c(0,30)) + xlab('Days since 100th confirmed case') + 
+  geom_label(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
+  theme_bw() + theme(legend.position = 'none')
+```
+
+```{r}
+m8s = subset(m8, Region=='US' | Region=='France' | Region=='Korea, South' |
+               Region=='Switzerland' | Region=='Japan' | Region=='China')
+m8s %>% 
+  group_by(Region) %>%
+  filter(DateDaysNorm<26) %>%
+  summarize(Confirmed = max(Confirmed),
+            Population=max(Population), 
+            DateDaysNorm = max(DateDaysNorm)) -> m8z
+ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
+  geom_line(alpha=0.3) + 
+  geom_line(data = m8s, size=1, alpha=0.8) + 
+  scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
+  scale_x_continuous(limits=c(0,30)) + xlab('Days since 100th confirmed case') + 
+  geom_label(data=m8z,aes(label=Region),hjust=-0.2) + 
+  theme_bw(base_size=16) + theme(legend.position = 'none')
+```
+
 
 Add an exponential fit:
 
