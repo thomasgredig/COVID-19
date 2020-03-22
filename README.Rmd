@@ -179,7 +179,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
 
 ```{r}
 m8s = subset(m8, Region=='US' | Region=='France' | Region=='Korea, South' |
-               Region=='Switzerland' | Region=='Japan' | Region=='China')
+               Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
   filter(DateDaysNorm<26) %>%
