@@ -20,7 +20,7 @@ Regions with more than 100 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-21, we have:
+2020-03-22, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -37,52 +37,53 @@ the list of countries:
 | -- | :------------- | :--------- |
 | 8  | China          | 2020-01-22 |
 | 9  | Cruise Ship    | 2020-02-10 |
-| 26 | Korea, South   | 2020-02-20 |
-| 25 | Japan          | 2020-02-21 |
-| 24 | Italy          | 2020-02-23 |
-| 21 | Iran           | 2020-02-26 |
-| 15 | France         | 2020-02-29 |
-| 40 | Singapore      | 2020-02-29 |
-| 16 | Germany        | 2020-03-01 |
-| 42 | Spain          | 2020-03-02 |
-| 48 | US             | 2020-03-03 |
-| 44 | Switzerland    | 2020-03-05 |
-| 47 | United Kingdom | 2020-03-05 |
+| 27 | Korea, South   | 2020-02-20 |
+| 26 | Japan          | 2020-02-21 |
+| 25 | Italy          | 2020-02-23 |
+| 22 | Iran           | 2020-02-26 |
+| 16 | France         | 2020-02-29 |
+| 41 | Singapore      | 2020-02-29 |
+| 17 | Germany        | 2020-03-01 |
+| 43 | Spain          | 2020-03-02 |
+| 49 | US             | 2020-03-03 |
+| 45 | Switzerland    | 2020-03-05 |
+| 48 | United Kingdom | 2020-03-05 |
 | 4  | Belgium        | 2020-03-06 |
-| 29 | Netherlands    | 2020-03-06 |
-| 30 | Norway         | 2020-03-06 |
-| 43 | Sweden         | 2020-03-06 |
+| 30 | Netherlands    | 2020-03-06 |
+| 31 | Norway         | 2020-03-06 |
+| 44 | Sweden         | 2020-03-06 |
 | 2  | Austria        | 2020-03-08 |
-| 28 | Malaysia       | 2020-03-09 |
+| 29 | Malaysia       | 2020-03-09 |
 | 1  | Australia      | 2020-03-10 |
 | 3  | Bahrain        | 2020-03-10 |
 | 11 | Denmark        | 2020-03-10 |
 | 6  | Canada         | 2020-03-11 |
-| 23 | Israel         | 2020-03-11 |
-| 36 | Qatar          | 2020-03-11 |
-| 18 | Iceland        | 2020-03-12 |
+| 24 | Israel         | 2020-03-11 |
+| 37 | Qatar          | 2020-03-11 |
+| 19 | Iceland        | 2020-03-12 |
 | 5  | Brazil         | 2020-03-13 |
 | 10 | Czechia        | 2020-03-13 |
-| 14 | Finland        | 2020-03-13 |
-| 17 | Greece         | 2020-03-13 |
-| 35 | Portugal       | 2020-03-13 |
-| 41 | Slovenia       | 2020-03-13 |
-| 13 | Estonia        | 2020-03-14 |
-| 19 | India          | 2020-03-14 |
-| 22 | Ireland        | 2020-03-14 |
-| 33 | Philippines    | 2020-03-14 |
-| 34 | Poland         | 2020-03-14 |
-| 37 | Romania        | 2020-03-14 |
-| 39 | Saudi Arabia   | 2020-03-14 |
-| 20 | Indonesia      | 2020-03-15 |
-| 45 | Thailand       | 2020-03-15 |
+| 15 | Finland        | 2020-03-13 |
+| 18 | Greece         | 2020-03-13 |
+| 36 | Portugal       | 2020-03-13 |
+| 42 | Slovenia       | 2020-03-13 |
+| 13 | Egypt          | 2020-03-14 |
+| 14 | Estonia        | 2020-03-14 |
+| 20 | India          | 2020-03-14 |
+| 23 | Ireland        | 2020-03-14 |
+| 34 | Philippines    | 2020-03-14 |
+| 35 | Poland         | 2020-03-14 |
+| 38 | Romania        | 2020-03-14 |
+| 40 | Saudi Arabia   | 2020-03-14 |
+| 21 | Indonesia      | 2020-03-15 |
+| 46 | Thailand       | 2020-03-15 |
 | 7  | Chile          | 2020-03-16 |
-| 31 | Pakistan       | 2020-03-16 |
-| 27 | Luxembourg     | 2020-03-17 |
-| 32 | Peru           | 2020-03-17 |
-| 38 | Russia         | 2020-03-17 |
+| 32 | Pakistan       | 2020-03-16 |
+| 28 | Luxembourg     | 2020-03-17 |
+| 33 | Peru           | 2020-03-17 |
+| 39 | Russia         | 2020-03-17 |
 | 12 | Ecuador        | 2020-03-18 |
-| 46 | Turkey         | 2020-03-19 |
+| 47 | Turkey         | 2020-03-19 |
 
 Make a graph with the trajectories from that point onwards:
 
@@ -103,14 +104,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.36844    0.01325   254.3   <2e-16 ***
+    ## T1 3.368078   0.009041   372.5   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 726 on 18 degrees of freedom
+    ## Residual standard error: 706.7 on 19 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 1.748e-07
+    ## Achieved convergence tolerance: 6.817e-08
 
 Semi-log plot:
 
@@ -140,26 +141,35 @@ when the `10th death` was recorded in each country:
 
 |    | Country        | Start |
 | -- | :------------- | ----: |
-| 4  | China          |  \-23 |
-| 10 | Iran           |    10 |
-| 11 | Italy          |    11 |
-| 13 | Korea, South   |    11 |
-| 21 | US             |    19 |
-| 6  | France         |    22 |
-| 17 | Spain          |    22 |
-| 12 | Japan          |    24 |
-| 14 | Netherlands    |    28 |
-| 19 | Switzerland    |    28 |
-| 20 | United Kingdom |    29 |
-| 7  | Germany        |    30 |
-| 15 | Philippines    |    30 |
-| 1  | Belgium        |    32 |
-| 9  | Indonesia      |    33 |
-| 18 | Sweden         |    33 |
-| 2  | Brazil         |    35 |
-| 3  | Canada         |    35 |
-| 5  | Denmark        |    36 |
-| 8  | Greece         |    36 |
-| 16 | Portugal       |    36 |
+| 5  | China          |  \-23 |
+| 13 | Iran           |    10 |
+| 14 | Italy          |    11 |
+| 16 | Korea, South   |    11 |
+| 26 | US             |    19 |
+| 9  | France         |    22 |
+| 21 | Spain          |    22 |
+| 15 | Japan          |    24 |
+| 18 | Netherlands    |    28 |
+| 23 | Switzerland    |    28 |
+| 25 | United Kingdom |    29 |
+| 10 | Germany        |    30 |
+| 19 | Philippines    |    30 |
+| 2  | Belgium        |    32 |
+| 12 | Indonesia      |    33 |
+| 22 | Sweden         |    33 |
+| 3  | Brazil         |    35 |
+| 4  | Canada         |    35 |
+| 6  | Denmark        |    36 |
+| 8  | Egypt          |    36 |
+| 11 | Greece         |    36 |
+| 20 | Portugal       |    36 |
+| 1  | Austria        |    37 |
+| 7  | Ecuador        |    37 |
+| 17 | Malaysia       |    37 |
+| 24 | Turkey         |    37 |
 
 ![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+Trying to add a fit line:
+
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->

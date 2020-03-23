@@ -360,3 +360,26 @@ ggplot(subset(m7, Region %in% c.list), aes(DateDaysNorm, Confirmed, col=Region))
   theme_bw()
 # ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)
 ```
+
+
+Trying to add a fit line:
+
+```{r}
+m7v = subset(m7, Region=='US')
+m7u = subset(m7v, DateDaysNorm >= 10)
+nls(data = m7u, Confirmed ~ A*exp((DateDaysNorm-10)/T),
+    start = list(A=min(m7u$Confirmed), T =3)) -> fit
+m7u.fit = data.frame(DateDaysNorm = 0:30,
+                     Confirmed = predict(fit, list(DateDaysNorm=0:30)))
+m7u.fit$Region = 'US'
+ggplot(m7v, aes(DateDaysNorm, Confirmed, col=Region)) + 
+  geom_path(data=m7, col='grey') + 
+  geom_point() + geom_path() +
+  geom_line(data=m7u.fit, col='blue') + 
+  scale_x_continuous(limits=c(-0,30)) + 
+  xlab('days since 15th death in region')+ 
+  scale_y_log10nice(limits=c(12,2e4), name='COVID-19 Deaths') +  
+  scale_shape_manual(values=1:nlevels(m5$Region)) +
+  theme_bw() + theme(legend.position = c(0.01,0.95),
+                     legend.justification = c(0,1))
+```
