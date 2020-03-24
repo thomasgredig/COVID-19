@@ -20,7 +20,7 @@ Regions with more than 100 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-22, we have:
+2020-03-23, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -35,55 +35,60 @@ the list of countries:
 
 |    | Region         | Date       |
 | -- | :------------- | :--------- |
-| 8  | China          | 2020-01-22 |
-| 9  | Cruise Ship    | 2020-02-10 |
-| 27 | Korea, South   | 2020-02-20 |
-| 26 | Japan          | 2020-02-21 |
-| 25 | Italy          | 2020-02-23 |
-| 22 | Iran           | 2020-02-26 |
-| 16 | France         | 2020-02-29 |
-| 41 | Singapore      | 2020-02-29 |
-| 17 | Germany        | 2020-03-01 |
-| 43 | Spain          | 2020-03-02 |
-| 49 | US             | 2020-03-03 |
-| 45 | Switzerland    | 2020-03-05 |
-| 48 | United Kingdom | 2020-03-05 |
-| 4  | Belgium        | 2020-03-06 |
-| 30 | Netherlands    | 2020-03-06 |
-| 31 | Norway         | 2020-03-06 |
-| 44 | Sweden         | 2020-03-06 |
-| 2  | Austria        | 2020-03-08 |
-| 29 | Malaysia       | 2020-03-09 |
-| 1  | Australia      | 2020-03-10 |
-| 3  | Bahrain        | 2020-03-10 |
-| 11 | Denmark        | 2020-03-10 |
-| 6  | Canada         | 2020-03-11 |
-| 24 | Israel         | 2020-03-11 |
-| 37 | Qatar          | 2020-03-11 |
-| 19 | Iceland        | 2020-03-12 |
-| 5  | Brazil         | 2020-03-13 |
-| 10 | Czechia        | 2020-03-13 |
-| 15 | Finland        | 2020-03-13 |
-| 18 | Greece         | 2020-03-13 |
-| 36 | Portugal       | 2020-03-13 |
-| 42 | Slovenia       | 2020-03-13 |
-| 13 | Egypt          | 2020-03-14 |
-| 14 | Estonia        | 2020-03-14 |
-| 20 | India          | 2020-03-14 |
-| 23 | Ireland        | 2020-03-14 |
-| 34 | Philippines    | 2020-03-14 |
-| 35 | Poland         | 2020-03-14 |
-| 38 | Romania        | 2020-03-14 |
-| 40 | Saudi Arabia   | 2020-03-14 |
-| 21 | Indonesia      | 2020-03-15 |
-| 46 | Thailand       | 2020-03-15 |
-| 7  | Chile          | 2020-03-16 |
-| 32 | Pakistan       | 2020-03-16 |
-| 28 | Luxembourg     | 2020-03-17 |
-| 33 | Peru           | 2020-03-17 |
-| 39 | Russia         | 2020-03-17 |
-| 12 | Ecuador        | 2020-03-18 |
-| 47 | Turkey         | 2020-03-19 |
+| 9  | China          | 2020-01-22 |
+| 11 | Cruise Ship    | 2020-02-10 |
+| 29 | Korea, South   | 2020-02-20 |
+| 28 | Japan          | 2020-02-21 |
+| 27 | Italy          | 2020-02-23 |
+| 24 | Iran           | 2020-02-26 |
+| 18 | France         | 2020-02-29 |
+| 45 | Singapore      | 2020-02-29 |
+| 19 | Germany        | 2020-03-01 |
+| 48 | Spain          | 2020-03-02 |
+| 54 | US             | 2020-03-03 |
+| 50 | Switzerland    | 2020-03-05 |
+| 53 | United Kingdom | 2020-03-05 |
+| 5  | Belgium        | 2020-03-06 |
+| 33 | Netherlands    | 2020-03-06 |
+| 34 | Norway         | 2020-03-06 |
+| 49 | Sweden         | 2020-03-06 |
+| 3  | Austria        | 2020-03-08 |
+| 31 | Malaysia       | 2020-03-09 |
+| 2  | Australia      | 2020-03-10 |
+| 4  | Bahrain        | 2020-03-10 |
+| 13 | Denmark        | 2020-03-10 |
+| 7  | Canada         | 2020-03-11 |
+| 26 | Israel         | 2020-03-11 |
+| 41 | Qatar          | 2020-03-11 |
+| 21 | Iceland        | 2020-03-12 |
+| 6  | Brazil         | 2020-03-13 |
+| 12 | Czechia        | 2020-03-13 |
+| 17 | Finland        | 2020-03-13 |
+| 20 | Greece         | 2020-03-13 |
+| 40 | Portugal       | 2020-03-13 |
+| 46 | Slovenia       | 2020-03-13 |
+| 15 | Egypt          | 2020-03-14 |
+| 16 | Estonia        | 2020-03-14 |
+| 22 | India          | 2020-03-14 |
+| 25 | Ireland        | 2020-03-14 |
+| 38 | Philippines    | 2020-03-14 |
+| 39 | Poland         | 2020-03-14 |
+| 42 | Romania        | 2020-03-14 |
+| 44 | Saudi Arabia   | 2020-03-14 |
+| 23 | Indonesia      | 2020-03-15 |
+| 51 | Thailand       | 2020-03-15 |
+| 8  | Chile          | 2020-03-16 |
+| 35 | Pakistan       | 2020-03-16 |
+| 30 | Luxembourg     | 2020-03-17 |
+| 37 | Peru           | 2020-03-17 |
+| 43 | Russia         | 2020-03-17 |
+| 14 | Ecuador        | 2020-03-18 |
+| 47 | South Africa   | 2020-03-18 |
+| 10 | Croatia        | 2020-03-19 |
+| 32 | Mexico         | 2020-03-19 |
+| 36 | Panama         | 2020-03-19 |
+| 52 | Turkey         | 2020-03-19 |
+| 1  | Argentina      | 2020-03-20 |
 
 Make a graph with the trajectories from that point onwards:
 
@@ -104,14 +109,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1 3.368078   0.009041   372.5   <2e-16 ***
+    ## T1 3.373862   0.006416   525.8   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 706.7 on 19 degrees of freedom
+    ## Residual standard error: 703.3 on 20 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 6.817e-08
+    ## Achieved convergence tolerance: 1.522e-08
 
 Semi-log plot:
 
@@ -142,31 +147,33 @@ when the `10th death` was recorded in each country:
 |    | Country        | Start |
 | -- | :------------- | ----: |
 | 5  | China          |  \-23 |
-| 13 | Iran           |    10 |
-| 14 | Italy          |    11 |
-| 16 | Korea, South   |    11 |
-| 26 | US             |    19 |
+| 14 | Iran           |    10 |
+| 15 | Italy          |    11 |
+| 17 | Korea, South   |    11 |
+| 28 | US             |    19 |
 | 9  | France         |    22 |
-| 21 | Spain          |    22 |
-| 15 | Japan          |    24 |
-| 18 | Netherlands    |    28 |
-| 23 | Switzerland    |    28 |
-| 25 | United Kingdom |    29 |
+| 23 | Spain          |    22 |
+| 16 | Japan          |    24 |
+| 19 | Netherlands    |    28 |
+| 25 | Switzerland    |    28 |
+| 27 | United Kingdom |    29 |
 | 10 | Germany        |    30 |
-| 19 | Philippines    |    30 |
+| 21 | Philippines    |    30 |
 | 2  | Belgium        |    32 |
-| 12 | Indonesia      |    33 |
-| 22 | Sweden         |    33 |
+| 13 | Indonesia      |    33 |
+| 24 | Sweden         |    33 |
 | 3  | Brazil         |    35 |
 | 4  | Canada         |    35 |
 | 6  | Denmark        |    36 |
 | 8  | Egypt          |    36 |
 | 11 | Greece         |    36 |
-| 20 | Portugal       |    36 |
+| 22 | Portugal       |    36 |
 | 1  | Austria        |    37 |
 | 7  | Ecuador        |    37 |
-| 17 | Malaysia       |    37 |
-| 24 | Turkey         |    37 |
+| 18 | Malaysia       |    37 |
+| 26 | Turkey         |    37 |
+| 12 | India          |    38 |
+| 20 | Norway         |    38 |
 
 ![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
