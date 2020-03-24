@@ -139,9 +139,6 @@ moment:
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
-when the `5th death` was recorded in each country:
-
-Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `10th death` was recorded in each country:
 
 |    | Country        | Start |
@@ -175,8 +172,12 @@ when the `10th death` was recorded in each country:
 | 12 | India          |    38 |
 | 20 | Norway         |    38 |
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 Trying to add a fit line:
+
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+Renormalize by population:
 
 ![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->

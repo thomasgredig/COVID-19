@@ -318,16 +318,6 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='C
 ```
 
 
-Renormalizing the start dates for `recorded deaths`, we find the dates when the `5th death` was recorded in each country:
-
-```{r}
-m6= subset(m5, Confirmed >= 5)
-q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
-names(q1) = c('Country','Start')
-#kable(q1[order(q1$Start),])
-```
-
-
 Renormalizing the start dates for `recorded deaths`, we find the dates when the `10th death` was recorded in each country:
 
 ```{r}
@@ -382,4 +372,24 @@ ggplot(m7v, aes(DateDaysNorm, Confirmed, col=Region)) +
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw() + theme(legend.position = c(0.01,0.95),
                      legend.justification = c(0,1))
+```
+
+Renormalize by population:
+
+```{r}
+m8 = data.frame()
+for(r in levels(m7$Region)) {
+  d1 = subset(m7, Region==r)
+  if (nrow(d1)>10) {
+    d1$Population = getPopulation(r)
+    m8 = rbind(m8, d1)
+  }
+}
+ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
+  #geom_point() + 
+  geom_path(size=1.5) +
+  scale_x_continuous(limits=c(-0,30)) + xlab('days since 15th death in region')+ 
+  scale_y_log10nice( name='COVID-19 Deaths per Million ppl') + 
+  scale_shape_manual(values=1:nlevels(m5$Region)) +
+  theme_bw()
 ```
