@@ -235,7 +235,7 @@ ggplot(m8a, aes(DateDaysNorm, Confirmed)) +
 
 ## Growth rates
 
-Growth rates since 100th confirmed case in different countries for the first 10 days compared with the range from 10-20 days. If the dark line is on the right, then the doubling time is decreasing; if the dark line is left, it means that doubling time is getting faster.
+Growth rates since 100th confirmed case in different countries for the first 10 days compared with the range from 10-25 days. If the dark line is on the right, then the doubling time is decreasing; if the dark line is left, it means that doubling time is getting faster.
 
 ```{r}
 result = data.frame()
@@ -247,7 +247,7 @@ for (r in levels(droplevels(m8$Region))) {
     nls(data = m8b,
       Confirmed ~ A0*exp(DateDaysNorm/T1),
       start = list(T1=3)) -> fit
-    m8b = subset(m8a, DateDaysNorm >= 10 & DateDaysNorm <= 20)
+    m8b = subset(m8a, DateDaysNorm >= 10 & DateDaysNorm <= 25)
     #plot(m8b$DateDaysNorm, m8b$Confirmed)
     A0 = m8b$Confirmed[1]
     if (nrow(m8b)>5) {
@@ -325,7 +325,7 @@ Renormalizing the start dates for `recorded deaths`, we find the dates when the 
 m6= subset(m5, Confirmed >= 10)
 q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
 names(q1) = c('Country','Start')
-kable(q1[order(q1$Start),])
+#kable(q1[order(q1$Start),])
 ```
 
 
@@ -346,7 +346,7 @@ ggplot(subset(m7, Region %in% c.list), aes(DateDaysNorm, Confirmed, col=Region))
   geom_path(data=m7, col='grey') + 
   geom_point() + geom_path() +
   scale_x_continuous(limits=c(-0,30)) + xlab('days since 15th death in region')+ 
-  scale_y_log10nice(limits=c(12,3e3), name='COVID-19 Deaths') + ylab('Deaths') + 
+  scale_y_log10nice(limits=c(10,1e4), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
 # ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)

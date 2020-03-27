@@ -20,7 +20,7 @@ Regions with more than 100 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-25, we have:
+2020-03-26, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -116,14 +116,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.43789    0.01014   339.1   <2e-16 ***
+    ## T1  3.46831    0.01018   340.8   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 1907 on 22 degrees of freedom
+    ## Residual standard error: 2492 on 23 degrees of freedom
     ## 
     ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 3.488e-07
+    ## Achieved convergence tolerance: 5.404e-07
 
 Semi-log plot:
 
@@ -132,7 +132,7 @@ Semi-log plot:
 ## Growth rates
 
 Growth rates since 100th confirmed case in different countries for the
-first 10 days compared with the range from 10-20 days. If the dark line
+first 10 days compared with the range from 10-25 days. If the dark line
 is on the right, then the doubling time is decreasing; if the dark line
 is left, it means that doubling time is getting faster.
 
@@ -147,43 +147,6 @@ moment:
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `10th death` was recorded in each country:
-
-|    | Country            | Start |
-| -- | :----------------- | ----: |
-| 6  | China              |  \-23 |
-| 17 | Iran               |    10 |
-| 19 | Italy              |    11 |
-| 21 | Korea, South       |    11 |
-| 34 | US                 |    19 |
-| 12 | France             |    22 |
-| 29 | Spain              |    22 |
-| 20 | Japan              |    24 |
-| 23 | Netherlands        |    28 |
-| 31 | Switzerland        |    28 |
-| 18 | Iraq               |    29 |
-| 33 | United Kingdom     |    29 |
-| 13 | Germany            |    30 |
-| 25 | Philippines        |    30 |
-| 3  | Belgium            |    32 |
-| 16 | Indonesia          |    33 |
-| 30 | Sweden             |    33 |
-| 1  | Algeria            |    35 |
-| 4  | Brazil             |    35 |
-| 5  | Canada             |    35 |
-| 7  | Denmark            |    36 |
-| 11 | Egypt              |    36 |
-| 14 | Greece             |    36 |
-| 27 | Portugal           |    36 |
-| 2  | Austria            |    37 |
-| 10 | Ecuador            |    37 |
-| 22 | Malaysia           |    37 |
-| 32 | Turkey             |    37 |
-| 15 | India              |    38 |
-| 24 | Norway             |    38 |
-| 8  | Diamond Princess   |    39 |
-| 26 | Poland             |    39 |
-| 28 | Romania            |    39 |
-| 9  | Dominican Republic |    40 |
 
 ![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
