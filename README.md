@@ -20,7 +20,7 @@ Regions with more than 100 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-28, we have:
+2020-03-29, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -52,14 +52,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.54973    0.01323   268.3   <2e-16 ***
+    ## T1  3.60166    0.01575   228.7   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 5130 on 25 degrees of freedom
+    ## Residual standard error: 7405 on 26 degrees of freedom
     ## 
-    ## Number of iterations to convergence: 5 
-    ## Achieved convergence tolerance: 2.154e-06
+    ## Number of iterations to convergence: 6 
+    ## Achieved convergence tolerance: 1.313e-07
 
 Semi-log plot:
 

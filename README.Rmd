@@ -152,7 +152,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed, col=Region)) +
   geom_line(size=1, alpha=0.5) + 
   geom_point(data=subset(m8,Region=='US'), size=3) +
   scale_y_log10nice(name='Confirmed COVID-19 Cases') + 
-  scale_x_continuous(limits=c(0,22)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,32)) + xlab('Days since 100th confirmed case') + 
   theme_bw() + 
   theme(legend.position = 'none')
 # ggsave('renormalized-COVID-19-confirmed.png',width=6,height=4, dpi=150)
@@ -174,17 +174,17 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
   scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,30)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,35)) + xlab('Days since 100th confirmed case') + 
   geom_label(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='France' | Region=='Korea, South' |
+m8s = subset(m8, Region=='US' | Region=='Spain' | Region=='Korea, South' | Region =='Sweden' |
                Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<26) %>%
+  filter(DateDaysNorm<40) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
@@ -192,7 +192,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
   scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,30)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,44)) + xlab('Days since 100th confirmed case') + 
   geom_label(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
@@ -227,7 +227,7 @@ ggplot(m8a, aes(DateDaysNorm, Confirmed)) +
   geom_line(data=m8b) + ylab('confirmed COVID-19 cases') + 
   ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +
   scale_y_log10nice(name='Confirmed COVID-19 cases') + 
-  scale_x_continuous(limits=c(0,28), breaks=0:5*7, minor_breaks=0:30) +
+  scale_x_continuous(limits=c(0,35), breaks=0:5*7, minor_breaks=0:30) +
   geom_text(data = subset(m8a, DateDaysNorm==max(DateDaysNorm)),
                           aes(label = Date), hjust=-0.2) + 
   theme_bw()
@@ -313,8 +313,8 @@ m5$DateDays = round(as.numeric(difftime( m5$Date, '2020-02-14', units='days')))
 ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
                 Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDays, Confirmed, col=Region, shape=Region)) + 
   geom_point() + 
-  scale_x_continuous(limits=c(-30,35)) + xlab('days since Valentine')+ 
-  scale_y_log10nice(limits=c(2,2e3), name='COVID-19 Deaths') + ylab('Deaths') + 
+  scale_x_continuous(limits=c(-30,50)) + xlab('days since Valentine')+ 
+  scale_y_log10nice(limits=c(2,2e4), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
 ```
