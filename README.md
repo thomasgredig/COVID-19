@@ -16,11 +16,11 @@ Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f
 
 ## Time Series
 
-Regions with more than 100 confirmed cases increased rapidly from a few
+Regions with more than 500 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-29, we have:
+2020-03-30, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -52,14 +52,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.60166    0.01575   228.7   <2e-16 ***
+    ## T1  3.65901    0.01824   200.6   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 7405 on 26 degrees of freedom
+    ## Residual standard error: 10190 on 27 degrees of freedom
     ## 
     ## Number of iterations to convergence: 6 
-    ## Achieved convergence tolerance: 1.313e-07
+    ## Achieved convergence tolerance: 5.833e-07
 
 Semi-log plot:
 
@@ -82,7 +82,7 @@ moment:
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
-when the `10th death` was recorded in each country:
+when the `50th death` was recorded in each country:
 
 ![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
