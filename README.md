@@ -14,13 +14,17 @@ Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of
 [Coronavirus by Tomas
 Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca).
 
+Projections based on [SIR
+models](https://www.maa.org/press/periodicals/loci/joma/the-sir-model-for-spread-of-disease-the-differential-equation-model)
+from [HealthData](https://covid19.healthdata.org/projections).
+
 ## Time Series
 
 Regions with more than 500 confirmed cases increased rapidly from a few
 to many.
 
 Only **some days later** the list of countries hugely expanded, so on
-2020-03-30, we have:
+2020-03-31, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -52,14 +56,14 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.65901    0.01824   200.6   <2e-16 ***
+    ## T1  3.71613    0.01975   188.1   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 10190 on 27 degrees of freedom
+    ## Residual standard error: 13060 on 28 degrees of freedom
     ## 
     ## Number of iterations to convergence: 6 
-    ## Achieved convergence tolerance: 5.833e-07
+    ## Achieved convergence tolerance: 1.706e-06
 
 Semi-log plot:
 

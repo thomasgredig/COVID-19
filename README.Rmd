@@ -36,6 +36,8 @@ We are comparing the growth rates in different regions. Using a 1-fit exponentia
 
 The data is from the [CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19) after analysis of [Coronavirus by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca). 
 
+Projections based on [SIR models](https://www.maa.org/press/periodicals/loci/joma/the-sir-model-for-spread-of-disease-the-differential-equation-model) from [HealthData](https://covid19.healthdata.org/projections).
+
 
 ```{r}
 dc = read.csv('data/population-by-country-2015.csv', stringsAsFactors = FALSE)
@@ -397,3 +399,4 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
 ```
+
