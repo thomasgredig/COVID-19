@@ -184,11 +184,11 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='Spain' | Region=='Korea, South' | Region =='Sweden' |
+m8s = subset(m8, Region=='US' | Region=='Spain' | Region=='Korea, South' | Region =='Turkey' |
                Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<40) %>%
+  filter(DateDaysNorm<45) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
@@ -196,7 +196,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
   scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,44)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,49)) + xlab('Days since 100th confirmed case') + 
   geom_label(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
