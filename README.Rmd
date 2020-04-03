@@ -74,16 +74,11 @@ m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
-#ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
-#  geom_bar(stat='identity', fill='red') +
-#  xlab('') +
-#  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') +
-#  scale_y_log10nice() + 
-#  coord_flip() + 
-#  theme_bw() 
+
+
 ```
 
-Only **some days later** the list of countries hugely expanded, so on `r max(m1$Date)`, we have:
+On `r max(m1$Date)`, we have:
 
 ```{r}
 SEL.DATE = max(m1$Date)
@@ -91,16 +86,25 @@ m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
-#m3$Region = as.character(levels(m3$Region)[m3$Region])
-ggplot(m3, aes(x=reorder(Region, Confirmed), y=Confirmed)) + 
+m3$Region = as.character(levels(m3$Region)[m3$Region])
+
+# calculate the number per population
+m3$population = 0
+for(r in m3$Region) {
+  if (!(r %in% c("Diamond Princess","Serbia"))) {
+    m3$population = getPopulation(r)
+  }
+}
+
+ggplot(m3, aes(x=reorder(Region, Confirmed/population), y=Confirmed/population*1e6)) + 
   geom_bar(stat='identity', fill='red') + 
   geom_bar(stat='identity', fill='blue', data=subset(m3,Region=='US')) + 
-  xlab('') +
-  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 cases:",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
+  xlab('Confirmed cases per Million Population') +
+  ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 on",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
   scale_y_log10nice() + 
   coord_flip() + 
   theme_bw(base_size = 8) 
-top.regions = levels(m3$Region)[m3$Region]
+top.regions = levels(factor(m3$Region))
 ```
 
 
@@ -209,7 +213,7 @@ m8a = subset(m8, Region == 'US')
 A0 = m8a$Confirmed[1]
 nls(data = m8a,
     Confirmed ~ A0*exp(DateDaysNorm/T1),
-    start = list( T1=3)) -> fit
+    start = list( T1=4)) -> fit
 m8b = data.frame(DateDaysNorm = 0:30,
                  Confirmed = predict(fit, list(DateDaysNorm=0:30)))
 T1 = signif(summary(fit)$coeff[1],2)
