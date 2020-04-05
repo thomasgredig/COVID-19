@@ -23,7 +23,7 @@ from [HealthData](https://covid19.healthdata.org/projections).
 Regions with more than 500 confirmed cases increased rapidly from a few
 to many.
 
-On 2020-04-02, we have:
+On 2020-04-04, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -51,18 +51,19 @@ Add an exponential fit:
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
     ## 
-    ## Formula: Confirmed ~ A0 * exp(DateDaysNorm/T1)
+    ## Formula: Confirmed ~ A * exp(DateDaysNorm/T1)
     ## 
     ## Parameters:
-    ##    Estimate Std. Error t value Pr(>|t|)    
-    ## T1  3.83808    0.02269   169.2   <2e-16 ***
+    ##     Estimate Std. Error t value Pr(>|t|)    
+    ## A  2200.5254   370.9962   5.931 8.42e-06 ***
+    ## T1    6.3969     0.2342  27.318  < 2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 20230 on 30 degrees of freedom
+    ## Residual standard error: 11220 on 20 degrees of freedom
     ## 
-    ## Number of iterations to convergence: 4 
-    ## Achieved convergence tolerance: 1.766e-06
+    ## Number of iterations to convergence: 9 
+    ## Achieved convergence tolerance: 4.797e-06
 
 Semi-log plot:
 
@@ -71,7 +72,7 @@ Semi-log plot:
 ## Growth rates
 
 Growth rates since 100th confirmed case in different countries for the
-first 10 days compared with the range from 10-25 days. If the dark line
+first 15 days compared with the range from 15-30 days. If the dark line
 is on the right, then the doubling time is decreasing; if the dark line
 is left, it means that doubling time is getting faster.
 
