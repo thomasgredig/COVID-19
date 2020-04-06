@@ -91,7 +91,7 @@ m3$Region = as.character(levels(m3$Region)[m3$Region])
 # calculate the number per population
 m3$population = 0
 for(r in m3$Region) {
-  if (!(r %in% c("Diamond Princess","Serbia"))) {
+  if (!(r %in% c("Diamond Princess","Serbia","North Macedonia"))) {
     m3$population = getPopulation(r)
   }
 }
@@ -113,10 +113,12 @@ m4 = aggregate(m1$Confirmed, by=list(m1$Region, m1$Date), FUN=sum)
 names(m4) = c('Region','Date','Confirmed')
 m4p = which(m4$Region %in% top.regions)
 m5 = m4[m4p,]
-ggplot(m5, aes(Date, Confirmed, col=Region)) + 
-  geom_line() + 
-  scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + ylab('') + 
-  theme_bw() + theme(legend.position = 'none')
+m5 %>%
+  filter(Date > "2020-02-14") %>%
+  ggplot(aes(Date, Confirmed, col=Region)) + 
+    geom_line() + 
+    scale_y_log10nice(limits=c(100,5e5),name='confirmed COVID-19 cases') + ylab('') + 
+    theme_bw() + theme(legend.position = 'none')
 ```
 
 
@@ -127,7 +129,7 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region =='
                 Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain' | Region == 'Korea, South'), aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
-  scale_y_log10nice(limits=c(100,2e5),name='confirmed COVID-19 cases') + 
+  scale_y_log10nice(limits=c(100,5e5),name='confirmed COVID-19 cases') + 
   theme_bw()
 # ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
 ```
@@ -148,8 +150,8 @@ Make a graph with the trajectories from that point onwards:
 ```{r}
 m8 = data.frame()
 for(q in 1:nrow(q.dates)) {
-  # print(q.dates$Region[q])
-  if (!(q.dates$Region[q] %in% c('Cruise Ship','Denmark','Qatar','Diamond Princess','Serbia'))) {
+  #print(q.dates$Region[q])
+  if (!(q.dates$Region[q] %in% c('Cruise Ship','Denmark','Qatar','Diamond Princess','Serbia','North Macedonia'))) {
     d1 = subset(m5a, Region == q.dates$Region[q])
     d1$DateDaysNorm = round(as.numeric(d1$DateDays - difftime(q.dates$Date[q],'2020-02-14', units='days')))
     d1$Population = getPopulation(as.character(levels(q.dates$Region)[q.dates$Region[q]]))
@@ -173,7 +175,7 @@ Scale by population of the country:
 ```{r}
 m8 %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<26) %>%
+  filter(DateDaysNorm<36) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
@@ -182,13 +184,13 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
   scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,35)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,40)) + xlab('Days since 100th confirmed case') + 
   geom_label(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='Spain' | Region=='Korea, South' | Region =='Turkey' |
+m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Turkey' |
                Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
