@@ -23,7 +23,7 @@ from [HealthData](https://covid19.healthdata.org/projections).
 Regions with more than 500 confirmed cases increased rapidly from a few
 to many.
 
-On 2020-04-05, we have:
+On 2020-04-07, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -55,15 +55,15 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##     Estimate Std. Error t value Pr(>|t|)    
-    ## A  2702.9604   463.8102   5.828 8.75e-06 ***
-    ## T1    6.7362     0.2569  26.221  < 2e-16 ***
+    ## A  4058.5048   726.1586   5.589  1.1e-05 ***
+    ## T1    7.4955     0.3144  23.837  < 2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 13230 on 21 degrees of freedom
+    ## Residual standard error: 18150 on 23 degrees of freedom
     ## 
     ## Number of iterations to convergence: 10 
-    ## Achieved convergence tolerance: 1.512e-06
+    ## Achieved convergence tolerance: 8.402e-06
 
 Semi-log plot:
 
