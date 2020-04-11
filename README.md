@@ -20,7 +20,7 @@ from [HealthData](https://covid19.healthdata.org/projections).
 
 ## Time Series
 
-Regions with more than 500 confirmed cases increased rapidly from a few
+Regions with more than 2000 confirmed cases increased rapidly from a few
 to many.
 
 On 2020-04-10, we have:

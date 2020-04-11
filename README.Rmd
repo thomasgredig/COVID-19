@@ -54,7 +54,7 @@ getPopulation <- function(countryName) {
 
 ## Time Series
 
-Regions with more than 500 confirmed cases increased rapidly from a few to many.
+Regions with more than 2000 confirmed cases increased rapidly from a few to many.
 
 ```{r}
 path.series = 'csse_covid_19_data/csse_covid_19_time_series'
@@ -68,14 +68,12 @@ names(m1) = c('Region','Date','Confirmed')
 m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
 m1$Date = as.Date(m1$Date, format='%m.%d.%y')
 
-NUM.CASES = 500
-SEL.DATE = '2020-03-01'
+NUM.CASES = 2000
+SEL.DATE = max(m1$Date)
 m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
-
-
 ```
 
 On `r max(m1$Date)`, we have:
@@ -125,7 +123,7 @@ m5 %>%
 Select a few countries with exponential growth in comparison with China:
 
 ```{r}
-ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region =='Canada' |
+ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region =='Sweden' |
                 Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain' | Region == 'Korea, South'), aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
@@ -190,7 +188,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Turkey' |
+m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' |
                Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
@@ -216,8 +214,8 @@ A0 = m8a$Confirmed[1]
 nls(data = subset(m8a, DateDaysNorm>10),
     Confirmed ~ A*exp(DateDaysNorm/T1),
     start = list( A=m8a$Confirmed[10], T1=4)) -> fit
-m8b = data.frame(DateDaysNorm = 0:35,
-                 Confirmed = predict(fit, list(DateDaysNorm=0:35)))
+m8b = data.frame(DateDaysNorm = 10:40,
+                 Confirmed = predict(fit, list(DateDaysNorm=10:40)))
 T1 = signif(summary(fit)$coeff[2],2)
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
   geom_point(col='red', size=2) + 
@@ -237,7 +235,7 @@ ggplot(m8a, aes(DateDaysNorm, Confirmed)) +
   geom_line(data=m8b) + ylab('confirmed COVID-19 cases') + 
   ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +
   scale_y_log10nice(name='Confirmed COVID-19 cases') + 
-  scale_x_continuous(limits=c(0,40), breaks=0:5*9, minor_breaks=0:40) +
+  scale_x_continuous(limits=c(0,44), breaks=0:5*11, minor_breaks=0:48) +
   geom_text(data = subset(m8a, DateDaysNorm==max(DateDaysNorm)),
                           aes(label = Date), hjust=-0.2) + 
   theme_bw()
