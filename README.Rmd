@@ -47,14 +47,15 @@ getPopulation <- function(countryName) {
   if (countryName=='Czechia') { countryName ='Czech Republic'}
   if (countryName=='Korea, South') { countryName = 'South Korea' }
   mc = which(dc$country==countryName)
-  dc$p[mc]
+  if (length(mc)>= 1) { p = dc$p[mc] } else { p=1e12 }
+  p
 }
 ```
 
 
 ## Time Series
 
-Regions with more than 2000 confirmed cases increased rapidly from a few to many.
+Regions with more than 5,000 confirmed cases increased rapidly from a few to many.
 
 ```{r}
 path.series = 'csse_covid_19_data/csse_covid_19_time_series'
@@ -68,36 +69,23 @@ names(m1) = c('Region','Date','Confirmed')
 m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
 m1$Date = as.Date(m1$Date, format='%m.%d.%y')
 
-NUM.CASES = 2000
+NUM.CASES = 5000
 SEL.DATE = max(m1$Date)
 m2 = subset(m1, Date==SEL.DATE)
 m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
 names(m3) = c('Region','Confirmed')
 m3 = subset(m3, Confirmed>NUM.CASES)
+m3$Region = levels(m3$Region)[m3$Region]
+m3$population = sapply(m3$Region, getPopulation)
 ```
 
 On `r max(m1$Date)`, we have:
 
 ```{r}
-SEL.DATE = max(m1$Date)
-m2 = subset(m1, Date==SEL.DATE)
-m3 = aggregate(m2$Confirmed, by=list(m2$Region), FUN=sum)
-names(m3) = c('Region','Confirmed')
-m3 = subset(m3, Confirmed>NUM.CASES)
-m3$Region = as.character(levels(m3$Region)[m3$Region])
-
-# calculate the number per population
-m3$population = 0
-for(r in m3$Region) {
-  if (!(r %in% c("Diamond Princess","Serbia","North Macedonia"))) {
-    m3$population = getPopulation(r)
-  }
-}
-
 ggplot(m3, aes(x=reorder(Region, Confirmed/population), y=Confirmed/population*1e6)) + 
   geom_bar(stat='identity', fill='red') + 
   geom_bar(stat='identity', fill='blue', data=subset(m3,Region=='US')) + 
-  xlab('Confirmed cases per Million Population') +
+  xlab('Confirmed cases per Thousand Population') +
   ggtitle(paste("More than",NUM.CASES,"confirmed COVID-19 on",SEL.DATE),subtitle = 'Source: Johns Hopkins CSSE') + 
   scale_y_log10nice() + 
   coord_flip() + 
@@ -115,7 +103,7 @@ m5 %>%
   filter(Date > "2020-02-14") %>%
   ggplot(aes(Date, Confirmed, col=Region)) + 
     geom_line() + 
-    scale_y_log10nice(limits=c(100,5e5),name='confirmed COVID-19 cases') + ylab('') + 
+    scale_y_log10nice(limits=c(100,1e6),name='confirmed COVID-19 cases') + ylab('') + 
     theme_bw() + theme(legend.position = 'none')
 ```
 
@@ -127,16 +115,16 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region =='
                 Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain' | Region == 'Korea, South'), aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
-  scale_y_log10nice(limits=c(100,5e5),name='confirmed COVID-19 cases') + 
+  scale_y_log10nice(limits=c(1000,1e6),name='confirmed COVID-19 cases') + 
   theme_bw()
 # ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
 ```
 
 
-Renormalize the growth starting with the 100th confirmed case. Here is the list of countries:
+Renormalize the growth starting with the 1000th confirmed case. Here is the list of countries:
 
 ```{r}
-m5a = subset(m5, Confirmed >= 100)
+m5a = subset(m5, Confirmed >= 1000)
 m5a$DateDays = round(as.numeric(difftime( m5a$Date, '2020-02-14', units='days')))
 q.dates = aggregate(m5a$Date, by=list(m5a$Region), FUN=min)
 names(q.dates) = c('Region','Date')
@@ -182,14 +170,13 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
   scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,40)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,40)) + xlab('Days since 1000th confirmed case') + 
   geom_label(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' |
-               Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
+m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
 m8s %>% 
   group_by(Region) %>%
   filter(DateDaysNorm<45) %>%
@@ -328,10 +315,10 @@ ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='C
 ```
 
 
-Renormalizing the start dates for `recorded deaths`, we find the dates when the `50th death` was recorded in each country:
+Renormalizing the start dates for `recorded deaths`, we find the dates when the `100th death` was recorded in each country:
 
 ```{r}
-m6= subset(m5, Confirmed >= 50)
+m6= subset(m5, Confirmed >= 100)
 q1 = aggregate(m6$DateDays, by=list(m6$Region), FUN=min)
 names(q1) = c('Country','Start')
 #kable(q1[order(q1$Start),])
@@ -352,13 +339,12 @@ for(q in 1:nrow(q1)) {
 ```{r}
 c.list = c('China','Spain','Italy','Iran','Japan','Korea, South','Switzerland','US')
 ggplot(subset(m7, Region %in% c.list), aes(DateDaysNorm, Confirmed, col=Region)) + 
-  geom_path(data=m7) + 
-  geom_point() + geom_path() +
+  geom_path(data=m7, col='grey', aes(group=Region)) + 
+  geom_point() + 
   scale_x_continuous(limits=c(-0,30)) + xlab('days since 50th death in region')+ 
   scale_y_log10nice(limits=c(50,1e4), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
-# ggsave('renormalized-COVID-19-deaths.png',width=5,height=3,dpi=150)
 ```
 
 
@@ -378,7 +364,7 @@ ggplot(m7v, aes(DateDaysNorm, Confirmed, col=Region)) +
   geom_line(data=m7u.fit, col='blue') + 
   scale_x_continuous(limits=c(-0,30)) + 
   xlab('days since 50th death in region')+ 
-  scale_y_log10nice(limits=c(12,2e4), name='COVID-19 Deaths') +  
+  scale_y_log10nice(limits=c(100,1e5), name='COVID-19 Deaths') +  
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw() + theme(legend.position = 'none') #c(0.01,0.95),
                      #legend.justification = c(0,1))
@@ -404,3 +390,20 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   theme_bw()
 ```
 
+
+
+
+```{r}
+droplevels(m8$Region) -> m8$Region
+m8$ConfDiff = unlist(by(m8$Confirmed, m8$Region, function(x) { c(0, diff(x)) } ))
+m8 %>%
+  filter(Region=='Spain' | Region=='Germany' | Region=='US' | 
+           Region=='Korea, South' | Region=='China' | Region=='Switzerland') %>%
+  filter(ConfDiff>10) %>%
+  ggplot(aes(DateDays, ConfDiff/Population*1e6, color=Region)) + 
+  scale_y_log10() + 
+  geom_point() + geom_path() + 
+  ylab('Daily COVID-19 Deaths') +
+  xlab('Date since Valentine') + 
+  theme_bw()
+```

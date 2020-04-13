@@ -20,10 +20,10 @@ from [HealthData](https://covid19.healthdata.org/projections).
 
 ## Time Series
 
-Regions with more than 2000 confirmed cases increased rapidly from a few
-to many.
+Regions with more than 5,000 confirmed cases increased rapidly from a
+few to many.
 
-On 2020-04-10, we have:
+On 2020-04-12, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -33,7 +33,7 @@ Select a few countries with exponential growth in comparison with China:
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-Renormalize the growth starting with the 100th confirmed case. Here is
+Renormalize the growth starting with the 1000th confirmed case. Here is
 the list of countries:
 
 Make a graph with the trajectories from that point onwards:
@@ -55,15 +55,15 @@ Add an exponential fit:
     ## 
     ## Parameters:
     ##     Estimate Std. Error t value Pr(>|t|)    
-    ## A  6766.1372  1186.3910   5.703 5.31e-06 ***
-    ## T1    8.6618     0.3819  22.681  < 2e-16 ***
+    ## A  2.542e+04  3.342e+03   7.608 2.51e-07 ***
+    ## T1 1.009e+01  4.768e-01  21.160 3.67e-15 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 25460 on 26 degrees of freedom
+    ## Residual standard error: 29020 on 20 degrees of freedom
     ## 
-    ## Number of iterations to convergence: 12 
-    ## Achieved convergence tolerance: 2.848e-06
+    ## Number of iterations to convergence: 10 
+    ## Achieved convergence tolerance: 5.394e-06
 
 Semi-log plot:
 
@@ -86,7 +86,7 @@ moment:
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
-when the `50th death` was recorded in each country:
+when the `100th death` was recorded in each country:
 
 ![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
@@ -97,3 +97,5 @@ Trying to add a fit line:
 Renormalize by population:
 
 ![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
