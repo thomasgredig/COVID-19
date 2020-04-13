@@ -403,7 +403,7 @@ m8 %>%
   ggplot(aes(DateDays, ConfDiff/Population*1e6, color=Region)) + 
   scale_y_log10() + 
   geom_point() + geom_path() + 
-  ylab('Daily COVID-19 Deaths') +
+  ylab('Daily COVID-19 Deaths per Million Population') +
   xlab('Date since Valentine') + 
   theme_bw()
 ```
