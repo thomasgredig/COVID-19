@@ -9,6 +9,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message  = FALSE)
 library(ggplot2)
+library(ggrepel)
 library(reshape2)
 library(knitr)
 library(dplyr)
@@ -111,8 +112,12 @@ m5 %>%
 Select a few countries with exponential growth in comparison with China:
 
 ```{r}
-ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region =='Sweden' |
-                Region=='Switzerland' | Region=='Iran' | Region=='China' | Region=='Spain' | Region == 'Korea, South'), aes(Date, Confirmed, col=Region)) + 
+m5 %>%
+  filter(Region=='US' | Region=='France' | Region=='Italy' | Region =='Sweden' | Region == 'Denmark' |
+                Region=='Switzerland' | Region=='Norway' | Region=='China' | Region=='Spain' | 
+           Region == 'Korea, South') %>% 
+  filter(Confirmed>1000) %>%
+  ggplot(aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
   scale_y_log10nice(limits=c(1000,1e6),name='confirmed COVID-19 cases') + 
@@ -161,25 +166,25 @@ Scale by population of the country:
 ```{r}
 m8 %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<36) %>%
+  filter(DateDaysNorm<55) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
 
-ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
+ggplot(m8z, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
   geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
   scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,40)) + xlab('Days since 1000th confirmed case') + 
-  geom_label(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
+  scale_x_continuous(limits=c(0,60)) + xlab('Days since 1000th confirmed case') + 
+  geom_label_repel(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy')
+m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy' | Region=='Norway')
 m8s %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<45) %>%
+  filter(DateDaysNorm<50) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
@@ -187,8 +192,8 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
   scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,49)) + xlab('Days since 100th confirmed case') + 
-  geom_label(data=m8z,aes(label=Region),hjust=-0.2) + 
+  scale_x_continuous(limits=c(0,60)) + xlab('Days since 100th confirmed case') + 
+  geom_label_repel(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
 
@@ -198,7 +203,7 @@ Add an exponential fit:
 ```{r}
 m8a = subset(m8, Region == 'US')
 A0 = m8a$Confirmed[1]
-nls(data = subset(m8a, DateDaysNorm>25),
+nls(data = subset(m8a, DateDaysNorm>35),
     Confirmed ~ A*exp(DateDaysNorm/T1),
     start = list( A=m8a$Confirmed[10], T1=4)) -> fit
 m8b = data.frame(DateDaysNorm = 20:50,
@@ -305,11 +310,14 @@ m5 = m4[m4p,]
 
 ```{r}
 m5$DateDays = round(as.numeric(difftime( m5$Date, '2020-02-14', units='days')))
-ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | Region=='China' |
-                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(DateDays, Confirmed, col=Region, shape=Region)) + 
+m5 %>%
+  filter(Region=='US' | Region=='France' | Region=='Italy' | Region=='China' | Region == 'Sweden' |
+                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South') %>%
+  filter(Confirmed>5) %>%
+  ggplot(aes(DateDays, Confirmed, col=Region, shape=Region)) + 
   geom_point() + 
-  scale_x_continuous(limits=c(-30,50)) + xlab('days since Valentine')+ 
-  scale_y_log10nice(limits=c(2,2e4), name='COVID-19 Deaths') + ylab('Deaths') + 
+  scale_x_continuous(limits=c(-30,80)) + xlab('days since Valentine')+ 
+  scale_y_log10nice(limits=c(5,2e5), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
 ```
@@ -352,11 +360,11 @@ Trying to add a fit line:
 
 ```{r}
 m7v = subset(m7, Region=='US')
-m7u = subset(m7v, DateDaysNorm >= 10)
-nls(data = m7u, Confirmed ~ A*exp((DateDaysNorm-10)/T),
+m7u = subset(m7v, DateDaysNorm >= 30)
+nls(data = m7u, Confirmed ~ A*exp((DateDaysNorm-30)/T),
     start = list(A=min(m7u$Confirmed), T =3)) -> fit
-m7u.fit = data.frame(DateDaysNorm = 0:30,
-                     Confirmed = predict(fit, list(DateDaysNorm=0:30)))
+m7u.fit = data.frame(DateDaysNorm = 0:50,
+                     Confirmed = predict(fit, list(DateDaysNorm=0:50)))
 m7u.fit$Region = 'US'
 ggplot(m7v, aes(DateDaysNorm, Confirmed, col=Region)) + 
   geom_path(data=m7, size=0.2) + geom_point(size=3, col='black') +
@@ -381,7 +389,9 @@ for(r in levels(m7$Region)) {
     m8 = rbind(m8, d1)
   }
 }
-ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
+m8 %>%
+  filter(Confirmed/Population*1e6 >= 1) %>%
+  ggplot(aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
   geom_path(data=subset(m8,Region=='US'),size=2, col='black') +
   geom_path(size=1) +
   scale_x_continuous(limits=c(-0,50)) + xlab('days since 50th death in region')+ 
@@ -397,7 +407,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
 droplevels(m8$Region) -> m8$Region
 m8$ConfDiff = unlist(by(m8$Confirmed, m8$Region, function(x) { c(0, diff(x)) } ))
 m8 %>%
-  filter(Region=='Spain' | Region=='Germany' | Region=='US' | 
+  filter(Region=='Spain' | Region=='Germany' | Region=='US' | Region == 'Sweden' | 
            Region=='Korea, South' | Region=='China' | Region=='Switzerland') %>%
   filter(ConfDiff>10) %>%
   ggplot(aes(DateDays, ConfDiff/Population*1e6, color=Region)) + 
