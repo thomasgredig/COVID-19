@@ -104,7 +104,7 @@ m5 %>%
   filter(Date > "2020-02-14") %>%
   ggplot(aes(Date, Confirmed, col=Region)) + 
     geom_line() + 
-    scale_y_log10nice(limits=c(100,1e6),name='confirmed COVID-19 cases') + ylab('') + 
+    scale_y_log10nice(limits=c(100,3e6),name='confirmed COVID-19 cases') + ylab('') + 
     theme_bw() + theme(legend.position = 'none')
 ```
 
