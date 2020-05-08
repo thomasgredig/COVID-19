@@ -1,7 +1,7 @@
 ---
 title: "report-COVID-19"
 author: "Thomas Gredig"
-date: "3/17/2020"
+date: "5/8/2020"
 output: 
   rmarkdown::github_document
 ---
@@ -120,7 +120,7 @@ m5 %>%
   ggplot(aes(Date, Confirmed, col=Region)) + 
   geom_point() + 
   geom_smooth(se=FALSE) + #, method="lm", formula= (Confirmed ~ exp(Date))) + 
-  scale_y_log10nice(limits=c(1000,1e6),name='confirmed COVID-19 cases') + 
+  scale_y_log10nice(limits=c(1000,3e6),name='confirmed COVID-19 cases') + 
   theme_bw()
 # ggsave('confirmed-COVID-19-selectedRegions.png', width=6,height=4, dpi=150)
 ```
@@ -175,7 +175,7 @@ ggplot(m8z, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
   scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,60)) + xlab('Days since 1000th confirmed case') + 
+  scale_x_continuous(limits=c(0,70)) + xlab('Days since 1000th confirmed case') + 
   geom_label_repel(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 ```
@@ -184,7 +184,7 @@ ggplot(m8z, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
 m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy' | Region=='Norway')
 m8s %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<50) %>%
+  filter(DateDaysNorm<60) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
@@ -192,7 +192,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
   scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,60)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,70)) + xlab('Days since 100th confirmed case') + 
   geom_label_repel(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
@@ -203,18 +203,18 @@ Add an exponential fit:
 ```{r}
 m8a = subset(m8, Region == 'US')
 A0 = m8a$Confirmed[1]
-nls(data = subset(m8a, DateDaysNorm>35),
+nls(data = subset(m8a, DateDaysNorm>45),
     Confirmed ~ A*exp(DateDaysNorm/T1),
     start = list( A=m8a$Confirmed[10], T1=4)) -> fit
-m8b = data.frame(DateDaysNorm = 20:50,
-                 Confirmed = predict(fit, list(DateDaysNorm=20:50)))
+m8b = data.frame(DateDaysNorm = 30:70,
+                 Confirmed = predict(fit, list(DateDaysNorm=30:70)))
 T1 = signif(summary(fit)$coeff[2],2)
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
   geom_point(col='red', size=2) + 
   geom_line(data=m8b) + ylab('Confirmed COVID-19 cases') + 
   ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') + 
-  scale_y_continuous(limits=c(0,1e6)) + 
-  scale_x_continuous(limits=c(0,52), breaks=0:7*7, minor_breaks=0:60) +
+  scale_y_continuous(limits=c(0,2e6)) + 
+  scale_x_continuous(limits=c(0,70), breaks=0:8*7, minor_breaks=0:80) +
   theme_bw()
 summary(fit)
 ```
@@ -227,7 +227,7 @@ ggplot(m8a, aes(DateDaysNorm, Confirmed)) +
   geom_line(data=m8b) + ylab('confirmed COVID-19 cases') + 
   ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +
   scale_y_log10nice(name='Confirmed COVID-19 cases') + 
-  scale_x_continuous(limits=c(0,44), breaks=0:5*11, minor_breaks=0:48) +
+  scale_x_continuous(limits=c(0,74), breaks=0:12*7, minor_breaks=0:78) +
   geom_text(data = subset(m8a, DateDaysNorm==max(DateDaysNorm)),
                           aes(label = Date), hjust=-0.2) + 
   theme_bw()
