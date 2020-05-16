@@ -153,7 +153,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed, col=Region)) +
   geom_line(size=1, alpha=0.5) + 
   geom_point(data=subset(m8,Region=='US'), size=3) +
   scale_y_log10nice(name='Confirmed COVID-19 Cases') + 
-  scale_x_continuous(limits=c(0,32)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,70)) + xlab('Days since 100th confirmed case') + 
   theme_bw() + 
   theme(legend.position = 'none')
 # ggsave('renormalized-COVID-19-confirmed.png',width=6,height=4, dpi=150)
@@ -166,18 +166,20 @@ Scale by population of the country:
 ```{r}
 m8 %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<55) %>%
+  filter(DateDaysNorm<70) %>%
+  filter(Population>25e6) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
 
 ggplot(m8z, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
-  geom_line(data=subset(m8, Population>7e6), size=1, alpha=0.8) + 
-  geom_line(data=subset(m8, Population<7e6), alpha=0.3) + 
-  scale_y_log10nice(name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,70)) + xlab('Days since 1000th confirmed case') + 
+  geom_line(data=subset(m8, Population>25e6), size=1, alpha=0.8) + 
+  geom_line(data=subset(m8, Population<25e6), alpha=0.3) + 
+  scale_y_log10nice(limits=c(60,2e4), name='Confirmed COVID-19 Cases per Million Population') + 
+  scale_x_continuous(limits=c(0,80)) + xlab('Days since 1000th confirmed case') + 
   geom_label_repel(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
+
 ```
 
 ```{r}
@@ -192,7 +194,7 @@ ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) +
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
   scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,70)) + xlab('Days since 100th confirmed case') + 
+  scale_x_continuous(limits=c(0,80)) + xlab('Days since 100th confirmed case') + 
   geom_label_repel(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
@@ -203,11 +205,11 @@ Add an exponential fit:
 ```{r}
 m8a = subset(m8, Region == 'US')
 A0 = m8a$Confirmed[1]
-nls(data = subset(m8a, DateDaysNorm>45),
+nls(data = subset(m8a, DateDaysNorm>55),
     Confirmed ~ A*exp(DateDaysNorm/T1),
     start = list( A=m8a$Confirmed[10], T1=4)) -> fit
-m8b = data.frame(DateDaysNorm = 30:70,
-                 Confirmed = predict(fit, list(DateDaysNorm=30:70)))
+m8b = data.frame(DateDaysNorm = 40:80,
+                 Confirmed = predict(fit, list(DateDaysNorm=40:80)))
 T1 = signif(summary(fit)$coeff[2],2)
 ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
   geom_point(col='red', size=2) + 
@@ -297,12 +299,6 @@ m4 = aggregate(m1$Confirmed, by=list(m1$Region, m1$Date), FUN=sum)
 names(m4) = c('Region','Date','Confirmed')
 m4p = which(m4$Region %in% top.regions)
 m5 = m4[m4p,]
-#ggplot(subset(m5, Region=='US' | Region=='France' | Region=='Italy' | 
-#                Region=='Switzerland' | Region=='Iran' |  Region=='Spain' | Region=='Korea, South'), aes(Date, Confirmed, #col=Region, shape=Region)) + 
-#  geom_point() + 
-#  scale_y_log10nice(limits=c(2,2e4)) + 
-#  scale_shape_manual(values=1:nlevels(m5$Region)) +
-#  theme_bw()
 ```
 
 
