@@ -390,7 +390,7 @@ m8 %>%
   ggplot(aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
   geom_path(data=subset(m8,Region=='US'),size=2, col='black') +
   geom_path(size=1) +
-  scale_x_continuous(limits=c(-0,50)) + xlab('days since 50th death in region')+ 
+  scale_x_continuous(limits=c(-0,80)) + xlab('days since 50th death in region')+ 
   scale_y_log10nice( name='COVID-19 Deaths per Million ppl') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
@@ -403,7 +403,7 @@ m8 %>%
 droplevels(m8$Region) -> m8$Region
 m8$ConfDiff = unlist(by(m8$Confirmed, m8$Region, function(x) { c(0, diff(x)) } ))
 m8 %>%
-  filter(Region=='Spain' | Region=='Germany' | Region=='US' | Region == 'Sweden' | 
+  filter(Region=='Spain' | Region=='Germany' | Region=='US' | Region == 'Sweden' | Region == 'Russia' |
            Region=='Korea, South' | Region=='China' | Region=='Switzerland') %>%
   filter(ConfDiff>10) %>%
   ggplot(aes(DateDays, ConfDiff/Population*1e6, color=Region)) + 
