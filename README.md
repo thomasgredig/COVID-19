@@ -23,7 +23,7 @@ from [HealthData](https://covid19.healthdata.org/projections).
 Regions with more than 5,000 confirmed cases increased rapidly from a
 few to many.
 
-On 2020-05-28, we have:
+On 2020-06-25, we have:
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -46,29 +46,6 @@ Scale by population of the country:
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-Add an exponential fit:
-
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
-
-    ## 
-    ## Formula: Confirmed ~ A * exp(DateDaysNorm/T1)
-    ## 
-    ## Parameters:
-    ##     Estimate Std. Error t value Pr(>|t|)    
-    ## A  5.408e+05  8.338e+03   64.86   <2e-16 ***
-    ## T1 6.670e+01  9.997e-01   66.72   <2e-16 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## Residual standard error: 10530 on 21 degrees of freedom
-    ## 
-    ## Number of iterations to convergence: 39 
-    ## Achieved convergence tolerance: 5.149e-07
-
-Semi-log plot:
-
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
-
 ## Growth rates
 
 Growth rates since 100th confirmed case in different countries for the
@@ -76,26 +53,22 @@ first 15 days compared with the range from 15-30 days. If the dark line
 is on the right, then the doubling time is decreasing; if the dark line
 is left, it means that doubling time is getting faster.
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ## Deaths
 
 Graphing some countries with exponentially growing death rates at the
 moment:
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 Renormalizing the start dates for `recorded deaths`, we find the dates
 when the `100th death` was recorded in each country:
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
-
-Trying to add a fit line:
-
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 Renormalize by population:
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->

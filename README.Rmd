@@ -175,65 +175,31 @@ m8 %>%
 ggplot(m8z, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
   geom_line(data=subset(m8, Population>25e6), size=1, alpha=0.8) + 
   geom_line(data=subset(m8, Population<25e6), alpha=0.3) + 
-  scale_y_log10nice(limits=c(60,2e4), name='Confirmed COVID-19 Cases per Million Population') + 
-  scale_x_continuous(limits=c(0,80)) + xlab('Days since 1000th confirmed case') + 
+  scale_y_log10nice(limits=c(60,5e4), name='Confirmed COVID-19 Cases per Million Population') + 
+  scale_x_continuous(limits=c(0,110)) + xlab('Days since 1000th confirmed case') + 
   geom_label_repel(data=subset(m8z, Population>7e6),aes(label=Region),hjust=-0.2) + 
   theme_bw() + theme(legend.position = 'none')
 
 ```
 
 ```{r}
-m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy' | Region=='Norway')
+m8s = subset(m8, Region=='US' | Region=='India' | Region=='Korea, South' | Region =='Sweden' | Region == 'Denmark' | Region=='Switzerland' | Region=='Japan' | Region=='China' | Region=='Italy' | Region=='Brazil')
 m8s %>% 
   group_by(Region) %>%
-  filter(DateDaysNorm<60) %>%
+  filter(DateDaysNorm<100) %>%
   summarize(Confirmed = max(Confirmed),
             Population=max(Population), 
             DateDaysNorm = max(DateDaysNorm)) -> m8z
 ggplot(m8, aes(DateDaysNorm, Confirmed/Population*1e6, col=Region)) + 
   geom_line(alpha=0.3) + 
   geom_line(data = m8s, size=1, alpha=0.8) + 
-  scale_y_log10nice(name='Confirmed COVID-19 per Million Ppl') + 
-  scale_x_continuous(limits=c(0,80)) + xlab('Days since 100th confirmed case') + 
+  scale_y_log10nice(limits=c(10,2e4),name='Confirmed COVID-19 per Million Ppl') + 
+  scale_x_continuous(limits=c(0,110)) + xlab('Days since 100th confirmed case') + 
   geom_label_repel(data=m8z,aes(label=Region),hjust=-0.2) + 
   theme_bw(base_size=16) + theme(legend.position = 'none')
 ```
 
 
-Add an exponential fit:
-
-```{r}
-m8a = subset(m8, Region == 'US')
-A0 = m8a$Confirmed[1]
-nls(data = subset(m8a, DateDaysNorm>55),
-    Confirmed ~ A*exp(DateDaysNorm/T1),
-    start = list( A=m8a$Confirmed[10], T1=4)) -> fit
-m8b = data.frame(DateDaysNorm = 40:90,
-                 Confirmed = predict(fit, list(DateDaysNorm=40:90)))
-T1 = signif(summary(fit)$coeff[2],2)
-ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
-  geom_point(col='red', size=2) + 
-  geom_line(data=m8b) + ylab('Confirmed COVID-19 cases') + 
-  ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') + 
-  scale_y_continuous(limits=c(0,2e6)) + 
-  scale_x_continuous(limits=c(0,90), breaks=0:15*7, minor_breaks=0:110) +
-  theme_bw()
-summary(fit)
-```
-
-Semi-log plot:
-
-```{r}
-ggplot(m8a, aes(DateDaysNorm, Confirmed)) + 
-  geom_point(col='red', size=2) + 
-  geom_line(data=m8b) + ylab('confirmed COVID-19 cases') + 
-  ggtitle(paste('US since',min(m8a$Date),' doubling time:',T1,'days')) + xlab('days') +
-  scale_y_log10nice(name='Confirmed COVID-19 cases') + 
-  scale_x_continuous(limits=c(0,100), breaks=0:18*7, minor_breaks=0:105) +
-  geom_text(data = subset(m8a, DateDaysNorm==max(DateDaysNorm)),
-                          aes(label = Date), hjust=-0.2) + 
-  theme_bw()
-```
 
 
 ## Growth rates
@@ -312,7 +278,7 @@ m5 %>%
   filter(Confirmed>5) %>%
   ggplot(aes(DateDays, Confirmed, col=Region, shape=Region)) + 
   geom_point() + 
-  scale_x_continuous(limits=c(-30,120)) + xlab('days since Valentine')+ 
+  scale_x_continuous(limits=c(-30,150)) + xlab('days since Valentine')+ 
   scale_y_log10nice(limits=c(500,2e5), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
@@ -341,38 +307,18 @@ for(q in 1:nrow(q1)) {
 
 
 ```{r}
-c.list = c('China','Spain','Italy','Iran','Japan','Korea, South','Switzerland','US')
+c.list = c('China','Spain','Italy','Denmark','Iran','Japan','Korea, South','Switzerland','US','Brazil', 'Russia')
 ggplot(subset(m7, Region %in% c.list), aes(DateDaysNorm, Confirmed, col=Region)) + 
   geom_path(data=m7, col='grey', aes(group=Region)) + 
   geom_point() + 
-  scale_x_continuous(limits=c(-0,100)) + xlab('days since 50th death in region')+ 
+  scale_x_continuous(limits=c(-0,120)) + xlab('days since 50th death in region')+ 
   scale_y_log10nice(limits=c(50,2e5), name='COVID-19 Deaths') + ylab('Deaths') + 
   scale_shape_manual(values=1:nlevels(m5$Region)) +
   theme_bw()
 ```
 
 
-Trying to add a fit line:
 
-```{r}
-m7v = subset(m7, Region=='US')
-m7u = subset(m7v, DateDaysNorm >= 50)
-nls(data = m7u, Confirmed ~ A*exp((DateDaysNorm-30)/T),
-    start = list(A=min(m7u$Confirmed), T =3)) -> fit
-m7u.fit = data.frame(DateDaysNorm = 0:110,
-                     Confirmed = predict(fit, list(DateDaysNorm=0:110)))
-m7u.fit$Region = 'US'
-ggplot(m7v, aes(DateDaysNorm, Confirmed, col=Region)) + 
-  geom_path(data=m7, size=0.2) + geom_point(size=3, col='black') +
-  geom_point(size=2) + geom_path() +
-  geom_line(data=m7u.fit, col='blue') + 
-  scale_x_continuous(limits=c(-0,90)) + 
-  xlab('days since 50th death in region')+ 
-  scale_y_log10nice(limits=c(110,2e5), name='COVID-19 Deaths') +  
-  scale_shape_manual(values=1:nlevels(m5$Region)) +
-  theme_bw() + theme(legend.position = 'none') #c(0.01,0.95),
-                     #legend.justification = c(0,1))
-```
 
 Renormalize by population:
 
