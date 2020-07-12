@@ -71,10 +71,35 @@ m1 = melt(d1)
 names(m1) = c('Region','Date','Confirmed')
 m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
 m1$Date = as.Date(m1$Date, format='%m.%d.%y')
-m1=m1[order(m1$Region),]
+m1=m1[order(m1$Region, m1$Date),]
 m1$Confirmed.PerMio = unlist(by(m1, m1$Region, 
                                 function(x) {x$Confirmed / getPopulation(levels(x$Region)[x$Region])}))
-m1$Confirmed.PerMio.3Day = m1$Confirmed.PerMio.3Day
+```
+
+
+```{r}
+# load confirmed cases in US by state
+path.series = 'csse_covid_19_data/csse_covid_19_time_series'
+file.list = dir(path.series, pattern='csv$')
+filename = 'time_series_covid19_confirmed_US.csv' 
+f = file.path(path.series, filename)
+d = read.csv(f)
+d1 = d[,-c(1:6,8:11)]
+m2 = melt(d1)
+names(m2) = c('Region','Date','Confirmed')
+m2$Date = gsub('^X','',as.character(levels(m2$Date)[m2$Date]))
+m2$Date = as.Date(m2$Date, format='%m.%d.%y')
+m2 %>% 
+  group_by(Region, Date) %>%
+  summarize(tot = sum(Confirmed)) -> m3
+m4 = data.frame(
+  Region = m3$Region,
+  Date = as.Date(m3$Date,format='%m.%d.%y'),
+  Confirmed = m3$tot
+)
+m4=m4[order(m4$Region, m4$Date),]
+m4$Confirmed.PerMio = unlist(by(m4, m4$Region, 
+                                function(x) {x$Confirmed / getPopulation(levels(x$Region)[x$Region])}))
 ```
 
 
@@ -84,9 +109,10 @@ Regions with more than 5,000 confirmed cases increased rapidly from a few to man
 
 ```{r}
 AVG.DAYS=7
-m1 %>%
-  filter(Region == 'US' | Region=='Korea, South' | Region=='Italy' | Region == 'Germany' |
-           Region == 'Switzerland' | Region == 'Singapore') %>%
+m = rbind(m1, m4)
+m %>%
+  filter(Region == 'US' | Region=='Korea, South' | Region=='Spain' | Region == 'Germany' |
+           Region == 'Switzerland' | Region == 'California') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
   filter(Date >= as.Date('2020-03-02')) %>%

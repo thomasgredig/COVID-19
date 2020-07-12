@@ -19,4 +19,4 @@ from [HealthData](https://covid19.healthdata.org/projections).
 Regions with more than 5,000 confirmed cases increased rapidly from a
 few to many.
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
