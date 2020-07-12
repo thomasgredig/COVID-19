@@ -78,6 +78,14 @@ m1 = melt(d1)
 names(m1) = c('Region','Date','Confirmed')
 m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
 m1$Date = as.Date(m1$Date, format='%m.%d.%y')
+m1 %>% 
+  group_by(Region, Date) %>%
+  summarize(tot = sum(Confirmed)) -> m5
+m1 = data.frame(
+  Region = m5$Region,
+  Date = as.Date(m5$Date,format='%m.%d.%y'),
+  Confirmed = m5$tot
+)
 m1=m1[order(m1$Region, m1$Date),]
 m1$Confirmed.PerMio = unlist(by(m1, m1$Region, 
                                 function(x) {x$Confirmed / getPopulation(levels(x$Region)[x$Region[1]])}))
@@ -120,8 +128,7 @@ Regions with more than 5,000 confirmed cases increased rapidly from a few to man
 AVG.DAYS=7
 m = rbind(m1, m4)
 m %>%
-  filter(Region == 'US' | Region=='Korea, South' | Region=='Arizona' | Region == 'Germany' |
-           Region == 'Switzerland' | Region =='Sweden') %>%
+  filter(Region == 'US' | Region=='Korea, South' | Region=='Canada' | Region == 'Germany' | Region == 'Switzerland' | Region =='Sweden') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
   filter(Date >= as.Date('2020-03-02')) %>%
