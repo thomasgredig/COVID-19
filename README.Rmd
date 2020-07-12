@@ -139,7 +139,7 @@ m %>%
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -173,7 +173,7 @@ m %>%
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
