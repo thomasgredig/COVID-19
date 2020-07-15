@@ -22,8 +22,16 @@ Confirmed cases over time for different regions:
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
+Some of the larger countries in the world:
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+Japan and U.S.
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
 ## United States
 
 Some selected regions within the U.S.
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->

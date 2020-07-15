@@ -155,6 +155,73 @@ m %>%
 ```
 
 
+Some of the larger countries in the world:
+
+```{r}
+AVG.DAYS=7
+m = rbind(m1, m4)
+m %>%
+  filter(Region == 'US' | Region=='Korea, South' | Region=='Canada' | Region == 'Germany' | Region == 'India' | Region =='Japan' | 
+           Region == 'China' | Region == 'Nigeria' | Region == 'Russia' | Region == 'Brazil') %>%
+  mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
+  mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
+  filter(Date >= as.Date('2020-03-02')) %>%
+  filter(Date < Sys.Date()-AVG.DAYS) %>%
+  ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
+  ylab('confirmed new cases per million') +
+  geom_line(size=1.5) +
+  #scale_y_log10() + 
+  scale_x_date() +
+  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+  theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
+        panel.background  = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(color='white'),
+        legend.background = element_blank(),
+        legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
+        legend.text = element_text(colour = "white"),
+        title = element_text(colour = "white"),
+        axis.ticks.length.x.bottom = 
+        )
+```
+
+
+Japan and U.S.
+
+```{r}
+AVG.DAYS=7
+m = rbind(m1, m4)
+m %>%
+  filter(Region == 'US' | Region=='Japan') %>%
+  mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
+  mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
+  filter(Date >= as.Date('2020-03-02')) %>%
+  filter(Date < Sys.Date()-AVG.DAYS) %>%
+  ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
+  ylab('confirmed new cases per million') +
+  geom_line(size=1.5) +
+  scale_y_log10() + 
+  scale_x_date() +
+  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+  theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
+        panel.background  = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(color='white'),
+        legend.background = element_blank(),
+        legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
+        legend.text = element_text(colour = "white"),
+        title = element_text(colour = "white"),
+        axis.ticks.length.x.bottom = 
+        )
+```
+
+
 ## United States
 
 Some selected regions within the U.S.
