@@ -122,7 +122,7 @@ m4$Confirmed.PerMio = unlist(by(m4, m4$Region,
 
 ## World
 
-Regions with more than 5,000 confirmed cases increased rapidly from a few to many.
+Confirmed cases over time for different regions:
 
 ```{r}
 AVG.DAYS=7
@@ -136,7 +136,7 @@ m %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new cases per million') +
   geom_line(size=1.5) +
-  #scale_y_continuous(breaks=c(0:5*250)) + 
+  #scale_y_log10() + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
             paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
@@ -157,21 +157,25 @@ m %>%
 
 ## United States
 
+Some selected regions within the U.S.
+
 
 ```{r}
-AVG.DAYS=5
+AVG.DAYS=7
 m %>%
-  filter(Region == 'US' | Region=='New York' | Region=='Arizona' | Region == 'California' |
+  filter(Region == 'US' | Region=='New York' | Region=='Arizona' | Region == 'California' |  Region == 'Ohio' |
            Region == 'Florida' | Region == 'Texas') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
-  filter(Date >= as.Date('2020-03-02')) %>%
+  filter(Date >= as.Date('2020-03-06')) %>%
+  filter(Confirmed.3DayMean>0.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new cases per million') +
   geom_line(size=1.5) +
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
+  scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
             paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),

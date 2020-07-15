@@ -18,11 +18,12 @@ from [HealthData](https://covid19.healthdata.org/projections).
 
 ## World
 
-Regions with more than 5,000 confirmed cases increased rapidly from a
-few to many.
+Confirmed cases over time for different regions:
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ## United States
+
+Some selected regions within the U.S.
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
