@@ -239,12 +239,12 @@ m %>%
   filter(Confirmed.3DayMean>0.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
-  ylab('confirmed new deaths per million') +
+  ylab('confirmed new cases per million') +
   geom_line(size=1.5) +
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
   scale_y_log10() + 
-  ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
+  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
             paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
@@ -371,12 +371,12 @@ m %>%
   filter(Confirmed.3DayMean>0.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
-  ylab('confirmed new cases per million') +
+  ylab('confirmed new deaths per million') +
   geom_line(size=1.5) +
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
   scale_y_log10() + 
-  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
+  ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
             paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
@@ -405,12 +405,12 @@ m %>%
   filter(Confirmed.3DayMean>0.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
-  ylab('confirmed new cases per million') +
+  ylab('confirmed new deaths per million') +
   geom_line(size=1.5) +
   #scale_y_continuous(breaks=c(0:5*250)) + 
   scale_x_date() +
   scale_y_log10() + 
-  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
+  ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
             paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
