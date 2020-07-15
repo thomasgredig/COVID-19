@@ -3,7 +3,8 @@ title: "report-COVID-19"
 author: "Thomas Gredig"
 date: "7/12/2020"
 output: 
-  rmarkdown::github_document
+  rmarkdown::github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -238,6 +239,138 @@ m %>%
   filter(Confirmed.3DayMean>0.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
+  ylab('confirmed new deaths per million') +
+  geom_line(size=1.5) +
+  #scale_y_continuous(breaks=c(0:5*250)) + 
+  scale_x_date() +
+  scale_y_log10() + 
+  ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+  theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
+        panel.background  = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(color='white'),
+        legend.background = element_blank(),
+        legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
+        legend.text = element_text(colour = "white"),
+        title = element_text(colour = "white"),
+        axis.ticks.length.x.bottom = 
+        )
+```
+
+
+
+
+# COVID-19 DEATHS
+
+
+
+```{r}
+# load deaths reported
+path.series = 'csse_covid_19_data/csse_covid_19_time_series'
+file.list = dir(path.series, pattern='csv$')
+filename = 'time_series_covid19_deaths_global.csv' 
+f = file.path(path.series, filename)
+d = read.csv(f)
+d1 = d[,-c(1,3,4)]
+m1 = melt(d1)
+names(m1) = c('Region','Date','Confirmed')
+m1$Date = gsub('^X','',as.character(levels(m1$Date)[m1$Date]))
+m1$Date = as.Date(m1$Date, format='%m.%d.%y')
+m1 %>% 
+  group_by(Region, Date) %>%
+  summarize(tot = sum(Confirmed)) -> m5
+m1 = data.frame(
+  Region = m5$Region,
+  Date = as.Date(m5$Date,format='%m.%d.%y'),
+  Confirmed = m5$tot
+)
+m1=m1[order(m1$Region, m1$Date),]
+m1$Confirmed.PerMio = unlist(by(m1, m1$Region, 
+                                function(x) {x$Confirmed / getPopulation(levels(x$Region)[x$Region[1]])}))
+```
+
+
+```{r}
+# load confirmed cases in US by state
+path.series = 'csse_covid_19_data/csse_covid_19_time_series'
+file.list = dir(path.series, pattern='csv$')
+filename = 'time_series_covid19_deaths_US.csv' 
+f = file.path(path.series, filename)
+d = read.csv(f)
+d1 = d[,-c(1:6,8:11)]
+m2 = melt(d1)
+names(m2) = c('Region','Date','Confirmed')
+m2$Date = gsub('^X','',as.character(levels(m2$Date)[m2$Date]))
+m2$Date = as.Date(m2$Date, format='%m.%d.%y')
+m2 %>% 
+  group_by(Region, Date) %>%
+  summarize(tot = sum(Confirmed)) -> m3
+m4 = data.frame(
+  Region = m3$Region,
+  Date = as.Date(m3$Date,format='%m.%d.%y'),
+  Confirmed = m3$tot
+)
+m4=m4[order(m4$Region, m4$Date),]
+m4$Confirmed.PerMio = unlist(by(m4, m4$Region, 
+                                function(x) {x$Confirmed / getPopulation(levels(x$Region)[x$Region])}))
+```
+
+
+## World
+
+Statistics of some of the larger countries including Brazil:
+
+```{r}
+AVG.DAYS=7
+m = rbind(m1, m4)
+m %>%
+  filter(Region == 'US' | Region=='Korea, South' | Region=='Canada' | Region == 'Germany' | Region == 'India' | Region =='Japan' | 
+           Region == 'China' | Region == 'Nigeria' | Region == 'Russia' | Region == 'Brazil') %>%
+  mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
+  mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
+  filter(Date >= as.Date('2020-03-02')) %>%
+  filter(Confirmed.3DayMean>0.01) %>%
+  filter(Date < Sys.Date()-AVG.DAYS) %>%
+  ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
+  ylab('confirmed new deaths per million') +
+  geom_line(size=1.5) +
+  scale_y_log10() + 
+  scale_x_date() +
+  ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+  theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
+        panel.background  = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(color='white'),
+        legend.background = element_blank(),
+        legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
+        legend.text = element_text(colour = "white"),
+        title = element_text(colour = "white"),
+        axis.ticks.length.x.bottom = 
+        )
+```
+
+
+## U.S.
+
+Statistics of selected U.S. states
+
+```{r}
+AVG.DAYS=7
+m %>%
+  filter(Region == 'US' | Region=='New York' | Region=='Arizona' | Region == 'California' |  Region == 'Ohio' |
+           Region == 'Florida' | Region == 'Texas') %>%
+  mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
+  mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
+  filter(Date >= as.Date('2020-03-06')) %>%
+  filter(Confirmed.3DayMean>0.1) %>%
+  filter(Date < Sys.Date()-AVG.DAYS) %>%
+  ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new cases per million') +
   geom_line(size=1.5) +
   #scale_y_continuous(breaks=c(0:5*250)) + 
@@ -259,3 +392,36 @@ m %>%
         )
 ```
 
+
+The 3 most populous states in the U.S.
+
+```{r}
+AVG.DAYS=7
+m %>%
+  filter(Region == 'California' | Region == 'Florida' | Region == 'Texas') %>%
+  mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
+  mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
+  filter(Date >= as.Date('2020-03-06')) %>%
+  filter(Confirmed.3DayMean>0.1) %>%
+  filter(Date < Sys.Date()-AVG.DAYS) %>%
+  ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
+  ylab('confirmed new cases per million') +
+  geom_line(size=1.5) +
+  #scale_y_continuous(breaks=c(0:5*250)) + 
+  scale_x_date() +
+  scale_y_log10() + 
+  ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
+            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+  theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
+        panel.background  = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(color='white'),
+        legend.background = element_blank(),
+        legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
+        legend.text = element_text(colour = "white"),
+        title = element_text(colour = "white"),
+        axis.ticks.length.x.bottom = 
+        )
+```

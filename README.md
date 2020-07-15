@@ -3,6 +3,14 @@ report-COVID-19
 Thomas Gredig
 7/12/2020
 
+  - [COVID-19](#covid-19)
+  - [Confirmed COVID-19 Cases](#confirmed-covid-19-cases)
+      - [World](#world)
+      - [United States](#united-states)
+  - [COVID-19 DEATHS](#covid-19-deaths)
+      - [World](#world-1)
+      - [U.S.](#u.s.)
+
 # COVID-19
 
 We are comparing the growth rates in different regions.
@@ -35,3 +43,21 @@ Japan and U.S.
 Some selected regions within the U.S.
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+# COVID-19 DEATHS
+
+## World
+
+Statistics of some of the larger countries including Brazil:
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+## U.S.
+
+Statistics of selected U.S. states
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+The 3 most populous states in the U.S.
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
