@@ -44,20 +44,22 @@ Some selected regions within the U.S.
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
 # COVID-19 DEATHS
 
 ## World
 
 Statistics of some of the larger countries including Brazil:
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## U.S.
 
 Statistics of selected U.S. states
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 The 3 most populous states in the U.S.
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
