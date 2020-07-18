@@ -430,11 +430,12 @@ The 3 most populous states in the U.S.
 AVG.DAYS=7
 m %>%
   filter(Region == 'California' | Region == 'Florida' | Region == 'Texas' |
-           Region == 'France' | Region == 'New York' | Region == 'Italy') %>%
+           Region == 'France' | Region == 'New York' | Region == 'Italy' |
+           Region == 'Switzerland') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
   filter(Date >= as.Date('2020-03-06')) %>%
-  filter(Confirmed.3DayMean>0.1) %>%
+  filter(Confirmed.3DayMean>0.07) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new deaths per million') +
