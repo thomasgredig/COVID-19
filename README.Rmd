@@ -507,3 +507,14 @@ m %>%
   geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='red') + 
   coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million')
 ```
+
+```{r}
+m %>%
+  filter(is.na(Confirmed.PerMio)==FALSE) %>%
+  filter(is.na(Date)==FALSE) %>%
+  filter(Date == max(Date)) %>%
+  filter(Confirmed.PerMio>80 & Confirmed.PerMio<250) %>%
+  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
+  geom_bar(stat='identity', fill='blue') + 
+  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million')
+```
