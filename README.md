@@ -10,6 +10,7 @@ Thomas Gredig
   - [COVID-19 DEATHS](#covid-19-deaths)
       - [World](#world-1)
       - [U.S.](#u.s.)
+      - [Death Rates by Country](#death-rates-by-country)
 
 # COVID-19
 
@@ -63,3 +64,11 @@ Statistics of selected U.S. states
 The 3 most populous states in the U.S.
 
 ![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+## Death Rates by Country
+
+As computed of 2020-07-20:
+
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->

@@ -62,7 +62,7 @@ getPopulation <- function(countryName) {
   if (countryName=='Czechia') { countryName ='Czech Republic'}
   if (countryName=='Korea, South') { countryName = 'South Korea' }
   mc = which(dc$Country==countryName)
-  if (length(mc)>= 1) { p = dc$Popoulation.2020[mc] } else { p=1 }
+  if (length(mc)>= 1) { p = dc$Popoulation.2020[mc] } else { p=1e14 }
   p/1e6
 }
 ```
@@ -489,4 +489,21 @@ m %>%
         title = element_text(colour = "white"),
         axis.ticks.length.x.bottom = 
         )
+```
+
+## Death Rates by Country
+
+As computed of `r Sys.Date()`:
+
+```{r}
+m6 = m[!is.na(m$Date),]
+m %>%
+  filter(is.na(Confirmed.PerMio)==FALSE) %>%
+  filter(is.na(Date)==FALSE) %>%
+  filter(Date == max(Date)) %>%
+  filter(Confirmed.PerMio>250) %>%
+  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
+  geom_bar(stat='identity', fill='blue') + 
+  geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='red') + 
+  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million')
 ```
