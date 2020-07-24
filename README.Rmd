@@ -33,6 +33,7 @@ scale_x_log10nice <- function(name=NULL,omag=seq(-10,20),...) {
     breaks10 <- 10^omag
     scale_x_log10(name,breaks=breaks10,labels=scientific_10(breaks10),...)
 }
+DATA.SOURCE = '@i7ed, source: JHU CSSE COVID-19 Data'
 ```
 
 
@@ -140,7 +141,7 @@ m %>%
   #scale_y_log10() + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -174,7 +175,7 @@ m %>%
   #scale_y_log10() + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -207,7 +208,7 @@ m %>%
   scale_y_log10() + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -245,7 +246,7 @@ m %>%
   scale_x_date() +
   scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -278,7 +279,7 @@ m %>%
   scale_x_date() +
   #scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Cases per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -371,7 +372,7 @@ m %>%
   scale_y_log10() + 
   scale_x_date() +
   ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -408,7 +409,7 @@ m %>%
   scale_x_date() +
   scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -444,7 +445,7 @@ m %>%
   scale_x_date() +
   scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -476,7 +477,7 @@ m %>%
   scale_x_date() +
   scale_y_log10() + 
   ggtitle('Confirmed new COVID-19 Deaths per Million', subtitle = 
-            paste('@i7ed, Source: Johns Hopkins University, ',AVG.DAYS,'day average')) + 
+            paste(DATA.SOURCE,', ',AVG.DAYS,'day average')) + 
   theme(plot.background = element_rect(fill="darkslateblue",colour='white'),
         panel.background  = element_blank(),
         panel.grid.major.x = element_blank(),
