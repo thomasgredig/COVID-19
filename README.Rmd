@@ -462,12 +462,12 @@ m %>%
 ```{r}
 AVG.DAYS=7
 m %>%
-  filter(Region == 'California' | Region == 'Florida' | Region == 'Switzerland' |
-           Region == 'Denmark') %>%
+  filter(Region == 'California' | Region == 'New York' | Region == 'Switzerland' | Region =='Germany' |
+           Region == 'US') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
-  filter(Date >= as.Date('2020-06-01')) %>%
-  filter(Confirmed.3DayMean>0.04) %>%
+  filter(Date >= as.Date('2020-03-11')) %>%
+  filter(Confirmed.3DayMean>0.005) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new deaths per million') +

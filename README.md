@@ -69,6 +69,8 @@ The 3 most populous states in the U.S.
 
 ## Death Rates by Country
 
-As computed of 2020-07-20:
+As computed of 2020-07-24:
 
 ![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
