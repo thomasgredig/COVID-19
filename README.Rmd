@@ -191,7 +191,7 @@ m %>%
 ```
 
 
-Japan and U.S.
+Japan and U.S. on log-scale:
 
 ```{r}
 AVG.DAYS=7
@@ -492,7 +492,7 @@ m %>%
         )
 ```
 
-## Death Rates by Country
+## Death Rates by Country and U.S. States
 
 As computed of `r Sys.Date()`:
 

@@ -10,7 +10,8 @@ Thomas Gredig
   - [COVID-19 DEATHS](#covid-19-deaths)
       - [World](#world-1)
       - [U.S.](#u.s.)
-      - [Death Rates by Country](#death-rates-by-country)
+      - [Death Rates by Country and U.S.
+        States](#death-rates-by-country-and-u.s.-states)
 
 # COVID-19
 
@@ -35,7 +36,7 @@ Some of the larger countries in the world:
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-Japan and U.S.
+Japan and U.S. on log-scale:
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
@@ -67,9 +68,9 @@ The 3 most populous states in the U.S.
 
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
-## Death Rates by Country
+## Death Rates by Country and U.S. States
 
-As computed of 2020-07-24:
+As computed of 2020-08-11:
 
 ![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
