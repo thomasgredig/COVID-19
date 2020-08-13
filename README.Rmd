@@ -152,7 +152,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -186,18 +187,19 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
 
-Japan and U.S. on log-scale:
+Japan, Switzerland and U.S. on log-scale:
 
 ```{r}
 AVG.DAYS=7
 m = rbind(m1, m4)
 m %>%
-  filter(Region == 'US' | Region=='Japan') %>%
+  filter(Region == 'US' | Region=='Japan' | Region == 'Switzerland' | Region == 'Korea, South') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
   filter(Date >= as.Date('2020-03-02')) %>%
@@ -219,7 +221,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -257,7 +260,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -290,7 +294,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -383,7 +388,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -420,7 +426,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -456,7 +463,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 
@@ -488,7 +496,8 @@ m %>%
         legend.key = element_rect(fill="darkslateblue",colour='darkslateblue'),
         legend.text = element_text(colour = "white"),
         title = element_text(colour = "white"),
-        axis.ticks.length.x.bottom = 
+        axis.ticks.length.x.bottom = unit(4,"mm"),
+        axis.ticks.x = element_line(color='white', linetype = 'dotted')
         )
 ```
 

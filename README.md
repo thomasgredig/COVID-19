@@ -36,7 +36,7 @@ Some of the larger countries in the world:
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-Japan and U.S. on log-scale:
+Japan, Switzerland and U.S. on log-scale:
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
@@ -70,7 +70,7 @@ The 3 most populous states in the U.S.
 
 ## Death Rates by Country and U.S. States
 
-As computed of 2020-08-11:
+As computed of 2020-08-13:
 
 ![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
