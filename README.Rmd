@@ -362,9 +362,12 @@ Statistics of some of the larger countries including Brazil:
 
 ```{r}
 AVG.DAYS=7
+m4$USstate = TRUE
+m1$USstate = FALSE
 m = rbind(m1, m4)
 m %>%
-  filter(Region == 'US' | Region=='Korea, South' | Region=='Canada' | Region == 'Germany' | Region == 'India' | Region =='Japan' | 
+  filter(Region == 'US' | Region=='Korea, South' | Region=='Canada' | 
+           Region == 'Germany' | Region == 'India' | Region =='Japan' | 
            Region == 'China' | Region == 'Nigeria' | Region == 'Russia' | Region == 'Brazil') %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
@@ -511,11 +514,12 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  filter(Confirmed.PerMio>250) %>%
-  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
-  geom_bar(stat='identity', fill='blue') + 
-  geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='red') + 
-  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million')
+  filter(Confirmed.PerMio>400) %>%
+  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio, fill=factor(USstate))) + 
+  geom_bar(stat='identity') + 
+  geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='green') + 
+  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million') +
+  theme(legend.position = 'none')
 ```
 
 ```{r}
@@ -523,8 +527,9 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  filter(Confirmed.PerMio>80 & Confirmed.PerMio<250) %>%
-  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
-  geom_bar(stat='identity', fill='blue') + 
-  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million')
+  filter(Confirmed.PerMio>150 & Confirmed.PerMio<400) %>%
+  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio, fill=factor(USstate))) + 
+  geom_bar(stat='identity') + 
+  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million') +
+    theme(legend.position = 'none')
 ```
