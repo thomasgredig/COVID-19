@@ -240,7 +240,7 @@ m %>%
   mutate(Confirmed.PerMio.New = c(0,diff(Confirmed.PerMio))) %>%
   mutate(Confirmed.3DayMean = rollmean(Confirmed.PerMio.New, k=AVG.DAYS, fill=NA)) %>%
   filter(Date >= as.Date('2020-03-06')) %>%
-  filter(Confirmed.3DayMean>0.1) %>%
+  filter(Confirmed.3DayMean>1.1) %>%
   filter(Date < Sys.Date()-AVG.DAYS) %>%
   ggplot(aes(Date,Confirmed.3DayMean, color=Region)) + 
   ylab('confirmed new cases per million') +
@@ -532,4 +532,23 @@ m %>%
   geom_bar(stat='identity') + 
   coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million') +
     theme(legend.position = 'none')
+```
+
+
+
+All countries:
+
+```{r}
+m0 = as.character(levels(m$Region)[m$Region])
+m %>%
+  filter(is.na(Confirmed.PerMio)==FALSE) %>%
+  filter(is.na(Date)==FALSE) %>%
+  filter(Date == max(Date)) %>%
+  # filter(Population>1) %>%
+  filter(USstate==FALSE) %>%
+  ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
+  geom_bar(stat='identity') + 
+  geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='green') +
+  coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million') +
+  theme(legend.position = 'none')
 ```
