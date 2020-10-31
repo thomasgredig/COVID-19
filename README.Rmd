@@ -544,7 +544,7 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  # filter(Population>1) %>%
+  filter(Confirmed.PerMio>200) %>%
   filter(USstate==FALSE) %>%
   ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
   geom_bar(stat='identity') + 
