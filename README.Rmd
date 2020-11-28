@@ -70,7 +70,7 @@ getPopulation <- function(countryName) {
 
 ```{r}
 # load confirmed cases
-path.series = 'csse_covid_19_data/csse_covid_19_time_series'
+path.series = 'csse_covid_19_data' #/csse_covid_19_time_series'
 file.list = dir(path.series, pattern='csv$')
 filename = 'time_series_covid19_confirmed_global.csv' 
 f = file.path(path.series, filename)
@@ -96,7 +96,6 @@ m1$Confirmed.PerMio = unlist(by(m1, m1$Region,
 
 ```{r}
 # load confirmed cases in US by state
-path.series = 'csse_covid_19_data/csse_covid_19_time_series'
 file.list = dir(path.series, pattern='csv$')
 filename = 'time_series_covid19_confirmed_US.csv' 
 f = file.path(path.series, filename)
@@ -306,7 +305,6 @@ m %>%
 
 ```{r}
 # load deaths reported
-path.series = 'csse_covid_19_data/csse_covid_19_time_series'
 file.list = dir(path.series, pattern='csv$')
 filename = 'time_series_covid19_deaths_global.csv' 
 f = file.path(path.series, filename)
@@ -332,7 +330,6 @@ m1$Confirmed.PerMio = unlist(by(m1, m1$Region,
 
 ```{r}
 # load confirmed cases in US by state
-path.series = 'csse_covid_19_data/csse_covid_19_time_series'
 file.list = dir(path.series, pattern='csv$')
 filename = 'time_series_covid19_deaths_US.csv' 
 f = file.path(path.series, filename)
