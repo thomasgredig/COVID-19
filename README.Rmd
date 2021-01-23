@@ -511,7 +511,7 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  filter(Confirmed.PerMio>500) %>%
+  filter(Confirmed.PerMio>1000) %>%
   ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio, fill=factor(USstate))) + 
   geom_bar(stat='identity') + 
   geom_bar(data=subset(m, Region=='US' & Date==max(m6$Date)), stat='identity', fill='green') + 
@@ -524,7 +524,7 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  filter(Confirmed.PerMio>250 & Confirmed.PerMio<500) %>%
+  filter(Confirmed.PerMio>500 & Confirmed.PerMio<1000) %>%
   ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio, fill=factor(USstate))) + 
   geom_bar(stat='identity') + 
   coord_flip() + xlab('Region') + ylab('Confirmed COVID-19 Deaths per Million') +
@@ -541,7 +541,7 @@ m %>%
   filter(is.na(Confirmed.PerMio)==FALSE) %>%
   filter(is.na(Date)==FALSE) %>%
   filter(Date == max(Date)) %>%
-  filter(Confirmed.PerMio>200) %>%
+  filter(Confirmed.PerMio>400) %>%
   filter(USstate==FALSE) %>%
   ggplot(aes(x=reorder(Region, Confirmed.PerMio), y=Confirmed.PerMio)) + 
   geom_bar(stat='identity') + 
